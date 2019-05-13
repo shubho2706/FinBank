@@ -1,0 +1,360 @@
+JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp background::l::878:x}"
+			"$verticalGroup": "par l {seq l {comp background:::p::p, space :0:0:x}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {comp sidepane:::p::p, space :::p, par l {comp navigation:::p::p, comp contentPanel:::p::p}}}"
+				"$verticalGroup": "par l {seq {comp navigation:::p::p, space :::p, comp contentPanel:::p::p, space ::69:x}, comp sidepane::l:::x}"
+			} ) {
+				name: "background"
+				"background": new java.awt.Color( 250, 250, 250, 255 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {comp homeAction:::::x, seq l {par t:::p {comp deleteAccountAction::l:::x, comp searchTransactionAction::l:::x, comp createUserAction::l:::x, comp createAccountAction::l:::x, comp transferMoneyAction::l:::x}, space :0:22:x}}"
+					"$verticalGroup": "par l {seq l {space :p:78:p, comp homeAction:::p::p, space :::p, comp createUserAction:::p::p, space :::p, comp createAccountAction:::p::p, space :::p, comp transferMoneyAction:::p::p, space :::p, comp searchTransactionAction:::p::p, space :::p, comp deleteAccountAction:::p::p, space ::200:x}}"
+				} ) {
+					name: "sidepane"
+					"background": new java.awt.Color( 54, 33, 89, 255 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp label1:::p:42:p, space u:::p, comp home:::p:122:p, space :::x}}"
+						"$verticalGroup": "par l {seq l {space :::p, par l {comp label1:::p:33:p, comp home:::::x}, space ::7:x}}"
+					} ) {
+						name: "homeAction"
+						"background": new java.awt.Color( 64, 43, 100, 255 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/home.png" )
+							"horizontalAlignment": 0
+							"foreground": &Color0 new java.awt.Color( 255, 255, 255, 255 )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "home"
+							"text": "Home"
+							"foreground": &Color1 new java.awt.Color( 204, 204, 204, 255 )
+							"font": &Font0 new java.awt.Font( "Segoe UI", 1, 16 )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "homeMousePressed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp label3:::p:42:p, space u:::p, comp createUser:::::x, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, par l {comp label3:::p:33:p, comp createUser:::::x}, space ::7:x}}"
+					} ) {
+						name: "createUserAction"
+						"background": new java.awt.Color( 64, 43, 100, 255 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/user.png" )
+							"horizontalAlignment": 0
+							"foreground": #Color0
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "createUser"
+							"text": "Create User"
+							"foreground": #Color1
+							"font": #Font0
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "createUserMousePressed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp label5:::p:42:p, space :::p, comp createAccount:::::x, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, par l {comp label5:::p:33:p, comp createAccount:::::x}, space ::7:x}}"
+					} ) {
+						name: "createAccountAction"
+						"background": new java.awt.Color( 85, 65, 118, 255 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label5"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/bank.png" )
+							"horizontalAlignment": 0
+							"foreground": #Color0
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "createAccount"
+							"text": "Create Account"
+							"foreground": #Color1
+							"font": #Font0
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "createAccountMousePressed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp label7:::p:42:p, space :::p, comp transferMoney:::::x, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, par l {comp label7:::p:33:p, comp transferMoney:::::x}, space ::7:x}}"
+					} ) {
+						name: "transferMoneyAction"
+						"background": &Color2 new java.awt.Color( 64, 43, 100, 255 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/moneyTransfer.png" )
+							"horizontalAlignment": 0
+							"foreground": #Color0
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "transferMoney"
+							"text": "Transfer Money"
+							"foreground": #Color1
+							"font": #Font0
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "transferMoneyMousePressed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp label8:::p:42:p, space :::p, comp searchTransaction::::0:x}}"
+						"$verticalGroup": "par l {seq l {space :::p, par l {comp label8:::p:33:p, comp searchTransaction:::::x}, space ::7:x}}"
+					} ) {
+						name: "searchTransactionAction"
+						"background": #Color2
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label8"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/searchTransaction.png" )
+							"horizontalAlignment": 0
+							"foreground": #Color0
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "searchTransaction"
+							"text": "Search Transaction"
+							"foreground": #Color1
+							"font": #Font0
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchTransactionMousePressed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp label10:::p:42:p, space :::p, comp deleteAccount:::::x, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, par l {comp label10:::p:33:p, comp deleteAccount:::::x}, space ::7:x}}"
+					} ) {
+						name: "deleteAccountAction"
+						"background": #Color2
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label10"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/deleteAccount.png" )
+							"horizontalAlignment": 0
+							"foreground": #Color0
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "deleteAccount"
+							"text": "Delete Account"
+							"foreground": #Color1
+							"font": #Font0
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "deleteAccountMousePressed", true ) )
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:14:p, comp label9:::p:71:p, space :::p, comp userName:::p:91:p, space ::421:x, comp logOut:::p:42:p, space :p:33:p}}"
+					"$verticalGroup": "par l {seq l {space :p:10:p, par l {par b {comp label9::b:p:24:p, comp userName::b:p::p}, comp logOut:::p:33:p}, space ::15:x}}"
+				} ) {
+					name: "navigation"
+					"background": new java.awt.Color( 122, 72, 241, 255 )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label9"
+						"text": "Welcome,"
+						"font": new java.awt.Font( "Segoe UI", 1, 14 )
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						"foreground": new java.awt.Color( 255, 255, 255, 255 )
+						"horizontalAlignment": 0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "userName"
+						"text": "Sunandan"
+						"foreground": new java.awt.Color( 255, 255, 51, 255 )
+						"font": new java.awt.Font( "Segoe UI", 1, 14 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "logOut"
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/lgout.png" )
+						"horizontalAlignment": 0
+						"foreground": #Color0
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "logOutMousePressed", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space :::x, comp label2:::p:277:p, space :p:189:p}, seq t {space :::x, par l {comp searchCustomer:::p::p, comp createSavingsAccount:::::x}, space :p:30:p}}"
+					"$verticalGroup": "par l {seq l {space :::p, comp label2:::p:35:p, space :p:18:p, comp searchCustomer:::p::p, space s:::p, comp createSavingsAccount:::::x}}"
+				} ) {
+					name: "contentPanel"
+					"background": new java.awt.Color( 250, 250, 250, 255 )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Savings Account Create Form"
+						"background": &Color3 new java.awt.Color( 255, 255, 255, 255 )
+						"foreground": new java.awt.Color( 255, 23, 68, 255 )
+						"horizontalAlignment": 0
+						"font": new java.awt.Font( "Segoe UI", 1, 16 )
+						"border": new javax.swing.border.LineBorder( sfield java.awt.Color blue, 2, true )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {comp label4:::p:186:p, space :p:32:p, comp customerId:::p:198:p, space ::69:x, comp search:::p:109:p, space :p:36:p}}"
+						"$verticalGroup": "par l {seq l {space :p:37:p, par b {comp label4::b:p:37:p, comp customerId::b:::x, comp search::b:p:37:p}, space ::50:x}}"
+					} ) {
+						name: "searchCustomer"
+						"background": new java.awt.Color( 255, 112, 67, 255 )
+						"border": new javax.swing.border.LineBorder( new java.awt.Color( 213, 0, 0, 255 ), 2, false )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label4"
+							"text": "Customer Id: "
+							"background": #Color3
+							"foreground": &Color4 new java.awt.Color( 0, 0, 0, 255 )
+							"horizontalAlignment": 0
+							"font": &Font1 new java.awt.Font( "Segoe UI", 1, 14 )
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "customerId"
+							"foreground": &Color5 new java.awt.Color( 55, 71, 79, 255 )
+							"border": &MatteBorder0 new javax.swing.border.MatteBorder( 1, 1, 1, 1, sfield java.awt.Color black )
+							"font": new java.awt.Font( "Segoe UI", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "search"
+							"text": "Search"
+							"background": new java.awt.Color( 139, 195, 74, 255 )
+							"foreground": new java.awt.Color( 213, 0, 0, 255 )
+							"font": &Font2 new java.awt.Font( "Segoe UI", 1, 14 )
+							"border": &LineBorder0 new javax.swing.border.LineBorder( sfield java.awt.Color black, 2, true )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq {space :::p, par l {seq l {comp label6:::p:144:p, space :::p, comp phoneNumber:::p:248:p}, seq l {comp label11:::p:144:p, space :::p, comp age:::p:161:p}, seq l {comp label12:::p:144:p, space :::p, comp customerName:::p:248:p}, seq l {comp label13:::p:138:p, space :::p, par l {seq l {par l {seq {comp initialDeposit:::p:198:p, space :::p, comp interestRate2:::p:33:p}, comp submit:::p:125:p}, space :p:16:p, par t {comp label14:::p:108:p, comp cancel:::p:121:p}, space :::p, comp interestRate:::p:29:p, space :::p, comp label16:::p:29:p}, seq l {space :p:204:p, comp label15:::p::p, space :p:39:p, comp gender:::p:70:p}}}}, space :::x}}"
+						"$verticalGroup": "par l {seq {space :p:7:p, par t {comp label12:::p:37:p, comp customerName:::p:37:p}, space :::p, par b {comp label6::b:p:37:p, comp phoneNumber::b:p:37:p}, par t {par l {comp label11:::p:37:p, comp age:::p:37:p}, par b {comp label15::b:p::p, comp gender::b:p::p}}, space u:::p, par l {par b {comp label13::b:p:37:p, comp initialDeposit::b:p::p}, par b:l {comp interestRate::b:p:37:p, comp label16::b:p:37:p, comp label14::b:p:37:p, comp interestRate2::b:p:37:p}}, par l {seq {space ::18:x, comp submit:::p:45:p, space :::p}, seq l {space :::p, comp cancel:::p:45:p, space :::x}}}}"
+					} ) {
+						name: "createSavingsAccount"
+						"background": new java.awt.Color( 0, 229, 255, 255 )
+						"border": new javax.swing.border.LineBorder( sfield java.awt.Color blue, 2, false )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label6"
+							"text": "Phone No:"
+							"background": #Color3
+							"foreground": #Color4
+							"horizontalAlignment": 0
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "phoneNumber"
+							"background": #Color3
+							"foreground": &Color6 new java.awt.Color( 245, 0, 87, 255 )
+							"font": &Font3 new java.awt.Font( "Verdana", 1, 16 )
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label11"
+							"text": "Age :"
+							"background": #Color3
+							"foreground": #Color4
+							"horizontalAlignment": 0
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "age"
+							"background": #Color3
+							"foreground": #Color6
+							"font": #Font3
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label12"
+							"text": "Customer Name:"
+							"background": #Color3
+							"foreground": #Color4
+							"horizontalAlignment": 0
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "customerName"
+							"background": #Color3
+							"foreground": #Color6
+							"font": #Font3
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label13"
+							"text": "Initial Deposit:"
+							"background": #Color3
+							"foreground": #Color4
+							"horizontalAlignment": 0
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "initialDeposit"
+							"foreground": #Color5
+							"border": #MatteBorder0
+							"font": new java.awt.Font( "Segoe UI Semibold", 1, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label14"
+							"text": "Interest Rate: "
+							"background": #Color3
+							"foreground": #Color4
+							"horizontalAlignment": 0
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "interestRate"
+							"background": #Color3
+							"foreground": sfield java.awt.Color red
+							"horizontalAlignment": 2
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label16"
+							"text": "%"
+							"background": #Color3
+							"foreground": #Color4
+							"horizontalAlignment": 2
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "cancel"
+							"text": "Cancel"
+							"background": new java.awt.Color( 244, 67, 54, 255 )
+							"foreground": new java.awt.Color( 255, 255, 255, 255 )
+							"font": #Font2
+							"border": #LineBorder0
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "cancelMousePressed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "submit"
+							"text": "Create Account"
+							"background": new java.awt.Color( 0, 200, 83, 255 )
+							"foreground": new java.awt.Color( 0, 0, 0, 255 )
+							"font": #Font2
+							"border": #LineBorder0
+							"enabled": false
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "submitMousePressed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "interestRate2"
+							"text": "INR"
+							"background": #Color3
+							"foreground": new java.awt.Color( 109, 76, 65, 255 )
+							"horizontalAlignment": 0
+							"font": #Font1
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label15"
+							"text": "Sex :"
+							"foreground": new java.awt.Color( 0, 0, 0, 255 )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "gender"
+							"foreground": new java.awt.Color( 255, 51, 51, 255 )
+						} )
+					} )
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 880, 580 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}
