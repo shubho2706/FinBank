@@ -49,6 +49,7 @@ public class FixedDepositAccountForm extends JFrame {
     }
 
     private void homeMousePressed(MouseEvent e) {
+        this.dispose();
         Instances.adminPanel.init();
     }
 
