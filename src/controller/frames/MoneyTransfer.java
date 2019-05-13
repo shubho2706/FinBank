@@ -71,10 +71,9 @@ public class MoneyTransfer extends JFrame {
             String fromAcc = accNoFrom.getText().trim();
             String toAcc = accNoTo.getText().trim();
             String amtStr = amount.getText().trim();
+
+
             if(validateAccountNumber((fromAcc)) && validateAccountNumber(toAcc) && amountValidate(amtStr)){
-
-
-
 
                 Transaction transaction = new Transaction();
                 transaction.setTransactionAmount(Double.parseDouble(amtStr));

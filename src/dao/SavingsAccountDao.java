@@ -185,11 +185,15 @@ public class SavingsAccountDao {
         //int rowsAffected;
         try {
 
-            String query = " DELETE from " + Constants.SAVINGS_ACCOUNT_TABLE + " a where a.account_number = " + accountNumber;
-            PreparedStatement preparedStmt = con.prepareStatement(query);
+            //String query = " DELETE from " + Constants.SAVINGS_ACCOUNT_TABLE + " a WHERE a.account_number = ? ;";
+            String query = "DELETE FROM "+Constants.SAVINGS_ACCOUNT_TABLE +" WHERE account_number = '"+accountNumber+"' ";
 
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            //preparedStmt.setString(1, accountNumber);
             // execute the preparedstatement
-            ResultSet rs = preparedStmt.executeQuery();
+            preparedStmt.executeUpdate();
+
+            con.close();
            // con.commit();
             /*if (rs.next()) {
                 return true;
@@ -197,7 +201,7 @@ public class SavingsAccountDao {
             return false;
 */
         } catch (Exception e) {
-            System.out.println("fixed deposit-DAO :: " + e);
+            System.out.println("saings -DAO :: " + e);
 //            return false;
 
         }

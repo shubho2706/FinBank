@@ -20,8 +20,9 @@ public class FixedDepositService {
         fixedDepositDao = new FixedDepositDao();
     }
 
-    public boolean addAccount(FixedDeposit fixedDeposit) {
+    public String addAccount(FixedDeposit fixedDeposit) {
         fixedDeposit.setAccountNumber(getAccountNumber());
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
@@ -41,7 +42,10 @@ public class FixedDepositService {
         amount = Double.parseDouble(df.format(amount));
         fixedDeposit.setMaturityAmount(amount);
 
-        return fixedDepositDao.addAccount(fixedDeposit);
+        if(fixedDepositDao.addAccount(fixedDeposit))
+                return fixedDeposit.getAccountNumber();
+        return null;
+
     }
 
     private String getAccountNumber() {
@@ -51,7 +55,7 @@ public class FixedDepositService {
         String accountNumber;
         do {
             Random random = new Random();
-            accountNumber = Constants.BANK_CODE + (random.nextInt(1000));
+            accountNumber = Constants.BANK_CODE_FIXED + (random.nextInt(1000));
             System.out.println("ID ::" + accountNumber);
 
         } while (isPresent(accountNumber));

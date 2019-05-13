@@ -71,7 +71,12 @@ public class SavingsAccountClose extends JFrame {
 
 
 
+
+
+
     private void searchMousePressed(MouseEvent e) {
+        //search.setEnabled(false);
+        savingsAccCombo.removeAllItems();
 
         String customerId = SavingsAccountClose.this.customerId.getText().trim();
         if (customerIdValidate(customerId)) {
@@ -80,12 +85,19 @@ public class SavingsAccountClose extends JFrame {
                 JFrame f = new JFrame();
                 JOptionPane.showMessageDialog(f, "Customer id not found. Please Create Customer First", "Alert", JOptionPane.WARNING_MESSAGE);
             } else {
-               //submit.setEnabled(true);
+                //Add to the combo box
+                String arrAcc[] = savingsAccountService.getAccountNumberList(customerId);
+
+                for (String accNo : arrAcc) {
+                    savingsAccCombo.addItem(accNo);
+                    System.out.println(accNo);
+                }
                 SavingsAccountClose.this.customerId.setEditable(false);
+                SavingsAccountClose.this.deleteButton.setEnabled(true);
+
             }
 
         }
-
     }
 
 
@@ -119,6 +131,7 @@ public class SavingsAccountClose extends JFrame {
             SavingsAccount savingsAccount = savingsAccountService.closeAccount(accountNumber);
             JFrame f = new JFrame();
             JOptionPane.showMessageDialog(f, "Account Deleted Successfully", "Alert", JOptionPane.WARNING_MESSAGE);
+            Instances.deleteAccount.init();
 
         }
     }

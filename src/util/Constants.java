@@ -23,7 +23,8 @@ public class Constants {
     public static final double SAVINGS_INTEREST_RATE = 5;
     public static final double FD_LIMIT_1 =  200_000_00;
     public static final double FD_LIMIT_2 =  1000_000_00;
-    public static final String BANK_CODE = "130";
+    public static final String BANK_CODE_SAVINGS = "130";
+    public static final String BANK_CODE_FIXED = "131";
 
 
     public static final String TRANSACTION_MEDIUM_CASH = "cash";

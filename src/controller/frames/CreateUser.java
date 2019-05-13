@@ -879,9 +879,11 @@ public class CreateUser extends JFrame {
 
             double yearlySal = Double.parseDouble(yearlySalStr);
             Customer customer = new Customer(fName, lName, prof, doBText, add, phNumber, gender, yearlySal);
-            if (customerService.addCustomer(customer)) {
+            String custIdInserted = customerService.addCustomer(customer);
+            if (custIdInserted != null) {
+
                 JFrame f = new JFrame();
-                JOptionPane.showMessageDialog(f, "Successfully Inserted.", "Alert", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(f, "Successfully Inserted. Customer Id : "+ custIdInserted , "Alert", JOptionPane.WARNING_MESSAGE);
                 Instances.adminPanel.init();
             } else {
                 JFrame f = new JFrame();

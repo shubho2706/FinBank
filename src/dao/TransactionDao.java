@@ -68,7 +68,8 @@ public class TransactionDao {
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(2, transaction.getTransactionId());
             preparedStmt.setString(1, Constants.TRANSACTION_STATUS_COMMITTED);
-            preparedStmt.execute();
+            preparedStmt.executeUpdate();
+            con.close();
             //con.commit();
             return true;
 
@@ -92,7 +93,8 @@ public class TransactionDao {
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(2, transaction.getTransactionId());
             preparedStmt.setString(1, Constants.TRANSACTION_STATUS_FAILED);
-            preparedStmt.execute();
+            preparedStmt.executeUpdate();
+            con.close();
             //con.commit();
             return true;
 

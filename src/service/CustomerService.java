@@ -13,11 +13,13 @@ public class CustomerService {
     {
         customerDao = new CustomerDao();
     }
-    public boolean addCustomer(Customer customer) {
+    public String addCustomer(Customer customer) {
         String id = getId();
         customer.setCustomerId(id);
 
-        return customerDao.addCustomer(customer);
+        if( customerDao.addCustomer(customer))
+            return id;
+        return null;
 
     }
 

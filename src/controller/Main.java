@@ -25,6 +25,8 @@ public class Main {
 
         //Instances.adminLoginForm.init();
 
+       // Instances.deleteAccount.init();
+
         Instances.moneyTransfer.init();
 
 

@@ -919,9 +919,10 @@ public class SavingsAccountForm extends JFrame {
                 customer.setCustomerId(SavingsAccountForm.this.customerId.getText().trim());
                 account.setCustomer(customer);
                 account.setCurrentBalance(Double.parseDouble(initAmount));
-                if (savingsAccountService.addAccount(account)) {
+                String accNum = savingsAccountService.addAccount(account);
+                if (accNum != null) {
                     JFrame f = new JFrame();
-                    JOptionPane.showMessageDialog(f, "Savings Account Successfully Created ", "Alert", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(f, "Savings Account Successfully Created : "+ accNum, "Alert", JOptionPane.WARNING_MESSAGE);
                     Instances.createAccount.init();
                     //TODO :: show the user details about the a/c
                 } else {

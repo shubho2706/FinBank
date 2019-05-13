@@ -108,11 +108,13 @@ public class FixedDepositDao {
         //int rowsAffected;
         try {
 
-            String query = " DELETE from " + Constants.FIXED_DEPOSIT_TABLE + " f where f.account_number = " + accountNumber;
+            //String query = " DELETE from " + Constants.FIXED_DEPOSIT_TABLE + " f where f.account_number = " + accountNumber;
+            String query = " Select account_number from " + Constants.FIXED_DEPOSIT_TABLE + " a where a.account_number = " + accountNumber;
             PreparedStatement preparedStmt = con.prepareStatement(query);
 
             // execute the preparedstatement
-            ResultSet rs = preparedStmt.executeQuery();
+            preparedStmt.executeUpdate();
+            con.close();
            // con.commit();
             /*if (rs.next()) {
                 return true;

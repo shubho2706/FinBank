@@ -164,12 +164,11 @@ public class CustomerDao {
             PreparedStatement preparedStmt = con.prepareStatement(query);
 
             // execute the preparedstatement
-            ResultSet rs = preparedStmt.executeQuery();
+            preparedStmt.executeUpdate();
+            con.close();
            // con.commit();
-            if (rs.next()) {
-                return true;
-            }
-            return false;
+
+            return true;
 
         } catch (Exception e) {
             System.out.println("CUSTOMER-DAO :: " + e);

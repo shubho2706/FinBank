@@ -2,6 +2,7 @@ package service;
 
 import dao.SavingsAccountDao;
 import entity.SavingsAccount;
+import util.Constants;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,29 +19,32 @@ public class SavingsAccountService {
     }
 
 
-    public boolean addAccount(SavingsAccount account) {
-        account.setAccountNumber(getNumber());
+    public String addAccount(SavingsAccount account) {
+        account.setAccountNumber(getAccountNumber());
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
         account.setDateCreated(dateFormat.format(date));
-        return savingsAccountDao.addAccount(account);
+        if( savingsAccountDao.addAccount(account))
+            return account.getAccountNumber();
+        return null;
 
     }
 
-    private String getNumber() {
+    private String getAccountNumber() {
 
 
         //TODO :  to follow to specific bank a/c no pattern
         String accountNumber;
         do {
             Random random = new Random();
-            accountNumber = String.format("%04d", random.nextInt(1000000));
+            accountNumber = Constants.BANK_CODE_SAVINGS + (random.nextInt(1000));
             System.out.println("ID ::" + accountNumber);
 
         } while (isPresent(accountNumber));
         return accountNumber;
     }
+
 
     public boolean isPresent(String accountNumber) {
         return savingsAccountDao.isPresent(accountNumber);

@@ -22,6 +22,10 @@ public class AdminPanel extends JFrame {
         initComponents();
     }
 
+
+
+
+
     private void createAccountMousePressed(MouseEvent e) {
 
         Instances.createAccount.init();
@@ -50,10 +54,24 @@ public class AdminPanel extends JFrame {
     }
 
 
+    private void logOutMousePressed(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void homeMousePressed(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void homeMouseReleased(MouseEvent e) {
+        // TODO add your code here
+    }
+
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+        // Generated using JFormDesigner Evaluation license - Shubham
         background = new JPanel();
         sidepane = new JPanel();
         homeAction = new JPanel();
@@ -115,6 +133,16 @@ public class AdminPanel extends JFrame {
                     home.setText("Home");
                     home.setForeground(new Color(204, 204, 204));
                     home.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    home.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            homeMousePressed(e);
+                        }
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                            homeMouseReleased(e);
+                        }
+                    });
 
                     GroupLayout homeActionLayout = new GroupLayout(homeAction);
                     homeAction.setLayout(homeActionLayout);
@@ -151,6 +179,12 @@ public class AdminPanel extends JFrame {
                     createUser.setText("Create User");
                     createUser.setForeground(new Color(204, 204, 204));
                     createUser.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    createUser.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            createUserMousePressed(e);
+                        }
+                    });
 
                     GroupLayout createUserActionLayout = new GroupLayout(createUserAction);
                     createUserAction.setLayout(createUserActionLayout);
@@ -187,6 +221,12 @@ public class AdminPanel extends JFrame {
                     createAccount.setText("Create Account");
                     createAccount.setForeground(new Color(204, 204, 204));
                     createAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    createAccount.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            createAccountMousePressed(e);
+                        }
+                    });
 
                     GroupLayout createAccountActionLayout = new GroupLayout(createAccountAction);
                     createAccountAction.setLayout(createAccountActionLayout);
@@ -223,6 +263,12 @@ public class AdminPanel extends JFrame {
                     transferMoney.setText("Transfer Money");
                     transferMoney.setForeground(new Color(204, 204, 204));
                     transferMoney.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    transferMoney.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            transferMoneyMousePressed(e);
+                        }
+                    });
 
                     GroupLayout transferMoneyActionLayout = new GroupLayout(transferMoneyAction);
                     transferMoneyAction.setLayout(transferMoneyActionLayout);
@@ -259,6 +305,12 @@ public class AdminPanel extends JFrame {
                     searchTransaction.setText("Search Transaction");
                     searchTransaction.setForeground(new Color(204, 204, 204));
                     searchTransaction.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    searchTransaction.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            searchTransactionMousePressed(e);
+                        }
+                    });
 
                     GroupLayout searchTransactionActionLayout = new GroupLayout(searchTransactionAction);
                     searchTransactionAction.setLayout(searchTransactionActionLayout);
@@ -294,6 +346,12 @@ public class AdminPanel extends JFrame {
                     deleteAccount.setText("Delete Account");
                     deleteAccount.setForeground(new Color(204, 204, 204));
                     deleteAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    deleteAccount.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            deleteAccountMousePressed(e);
+                        }
+                    });
 
                     GroupLayout deleteAccountActionLayout = new GroupLayout(deleteAccountAction);
                     deleteAccountAction.setLayout(deleteAccountActionLayout);
@@ -346,7 +404,7 @@ public class AdminPanel extends JFrame {
                             .addComponent(searchTransactionAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deleteAccountAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(164, Short.MAX_VALUE))
+                            .addContainerGap(167, Short.MAX_VALUE))
                 );
             }
 
@@ -370,6 +428,12 @@ public class AdminPanel extends JFrame {
                 logOut.setIcon(new ImageIcon(getClass().getResource("/resource/lgout.png")));
                 logOut.setHorizontalAlignment(SwingConstants.CENTER);
                 logOut.setForeground(Color.white);
+                logOut.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        logOutMousePressed(e);
+                    }
+                });
 
                 GroupLayout navigationLayout = new GroupLayout(navigation);
                 navigation.setLayout(navigationLayout);
@@ -454,7 +518,7 @@ public class AdminPanel extends JFrame {
                             .addComponent(label2, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
                             .addGap(58, 58, 58)
                             .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(67, Short.MAX_VALUE))
+                            .addContainerGap(70, Short.MAX_VALUE))
                 );
             }
 
@@ -496,7 +560,7 @@ public class AdminPanel extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+    // Generated using JFormDesigner Evaluation license - Shubham
     private JPanel background;
     private JPanel sidepane;
     private JPanel homeAction;
