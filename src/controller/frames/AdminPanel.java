@@ -4,6 +4,7 @@
 
 package controller.frames;
 
+import javax.swing.border.*;
 import util.Instances;
 
 import javax.swing.*;
@@ -52,7 +53,7 @@ public class AdminPanel extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Shubham
+        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
         background = new JPanel();
         sidepane = new JPanel();
         homeAction = new JPanel();
@@ -64,7 +65,7 @@ public class AdminPanel extends JFrame {
         createAccountAction = new JPanel();
         label5 = new JLabel();
         createAccount = new JLabel();
-        transaferMoneyAction = new JPanel();
+        transferMoneyAction = new JPanel();
         label7 = new JLabel();
         transferMoney = new JLabel();
         searchTransactionAction = new JPanel();
@@ -77,22 +78,24 @@ public class AdminPanel extends JFrame {
         label9 = new JLabel();
         userName = new JLabel();
         logOut = new JLabel();
+        contentPanel = new JPanel();
+        label2 = new JLabel();
+        panel1 = new JPanel();
+        label4 = new JLabel();
 
         //======== this ========
-        setUndecorated(true);
-        setLocationByPlatform(true);
         Container contentPane = getContentPane();
 
         //======== background ========
         {
-            background.setBackground(new Color(204, 204, 204));
+            background.setBackground(new Color(250, 250, 250));
 
             // JFormDesigner evaluation mark
             background.setBorder(new javax.swing.border.CompoundBorder(
                 new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                     "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
             //======== sidepane ========
@@ -104,7 +107,7 @@ public class AdminPanel extends JFrame {
                     homeAction.setBackground(new Color(85, 65, 118));
 
                     //---- label1 ----
-                    label1.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\home.png"));
+                    label1.setIcon(new ImageIcon(getClass().getResource("/resource/home.png")));
                     label1.setHorizontalAlignment(SwingConstants.CENTER);
                     label1.setForeground(Color.white);
 
@@ -122,7 +125,7 @@ public class AdminPanel extends JFrame {
                                 .addComponent(label1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(home, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(30, Short.MAX_VALUE))
                     );
                     homeActionLayout.setVerticalGroup(
                         homeActionLayout.createParallelGroup()
@@ -140,7 +143,7 @@ public class AdminPanel extends JFrame {
                     createUserAction.setBackground(new Color(64, 43, 100));
 
                     //---- label3 ----
-                    label3.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\user.png"));
+                    label3.setIcon(new ImageIcon(getClass().getResource("/resource/user.png")));
                     label3.setHorizontalAlignment(SwingConstants.CENTER);
                     label3.setForeground(Color.white);
 
@@ -148,12 +151,6 @@ public class AdminPanel extends JFrame {
                     createUser.setText("Create User");
                     createUser.setForeground(new Color(204, 204, 204));
                     createUser.setFont(new Font("Segoe UI", Font.BOLD, 16));
-                    createUser.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            createUserMousePressed(e);
-                        }
-                    });
 
                     GroupLayout createUserActionLayout = new GroupLayout(createUserAction);
                     createUserAction.setLayout(createUserActionLayout);
@@ -182,7 +179,7 @@ public class AdminPanel extends JFrame {
                     createAccountAction.setBackground(new Color(64, 43, 100));
 
                     //---- label5 ----
-                    label5.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\bank.png"));
+                    label5.setIcon(new ImageIcon(getClass().getResource("/resource/bank.png")));
                     label5.setHorizontalAlignment(SwingConstants.CENTER);
                     label5.setForeground(Color.white);
 
@@ -190,13 +187,6 @@ public class AdminPanel extends JFrame {
                     createAccount.setText("Create Account");
                     createAccount.setForeground(new Color(204, 204, 204));
                     createAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
-                    createAccount.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            createAccountMousePressed(e);
-                            createAccountMousePressed(e);
-                        }
-                    });
 
                     GroupLayout createAccountActionLayout = new GroupLayout(createAccountAction);
                     createAccountAction.setLayout(createAccountActionLayout);
@@ -220,12 +210,12 @@ public class AdminPanel extends JFrame {
                     );
                 }
 
-                //======== transaferMoneyAction ========
+                //======== transferMoneyAction ========
                 {
-                    transaferMoneyAction.setBackground(new Color(64, 43, 100));
+                    transferMoneyAction.setBackground(new Color(64, 43, 100));
 
                     //---- label7 ----
-                    label7.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\moneyTransfer.png"));
+                    label7.setIcon(new ImageIcon(getClass().getResource("/resource/moneyTransfer.png")));
                     label7.setHorizontalAlignment(SwingConstants.CENTER);
                     label7.setForeground(Color.white);
 
@@ -233,29 +223,23 @@ public class AdminPanel extends JFrame {
                     transferMoney.setText("Transfer Money");
                     transferMoney.setForeground(new Color(204, 204, 204));
                     transferMoney.setFont(new Font("Segoe UI", Font.BOLD, 16));
-                    transferMoney.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            transferMoneyMousePressed(e);
-                        }
-                    });
 
-                    GroupLayout transaferMoneyActionLayout = new GroupLayout(transaferMoneyAction);
-                    transaferMoneyAction.setLayout(transaferMoneyActionLayout);
-                    transaferMoneyActionLayout.setHorizontalGroup(
-                        transaferMoneyActionLayout.createParallelGroup()
-                            .addGroup(transaferMoneyActionLayout.createSequentialGroup()
+                    GroupLayout transferMoneyActionLayout = new GroupLayout(transferMoneyAction);
+                    transferMoneyAction.setLayout(transferMoneyActionLayout);
+                    transferMoneyActionLayout.setHorizontalGroup(
+                        transferMoneyActionLayout.createParallelGroup()
+                            .addGroup(transferMoneyActionLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(label7, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(transferMoney, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
                     );
-                    transaferMoneyActionLayout.setVerticalGroup(
-                        transaferMoneyActionLayout.createParallelGroup()
-                            .addGroup(transaferMoneyActionLayout.createSequentialGroup()
+                    transferMoneyActionLayout.setVerticalGroup(
+                        transferMoneyActionLayout.createParallelGroup()
+                            .addGroup(transferMoneyActionLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(transaferMoneyActionLayout.createParallelGroup()
+                                .addGroup(transferMoneyActionLayout.createParallelGroup()
                                     .addComponent(label7, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(transferMoney, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap(7, Short.MAX_VALUE))
@@ -267,7 +251,7 @@ public class AdminPanel extends JFrame {
                     searchTransactionAction.setBackground(new Color(64, 43, 100));
 
                     //---- label8 ----
-                    label8.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\searchTransaction.png"));
+                    label8.setIcon(new ImageIcon(getClass().getResource("/resource/searchTransaction.png")));
                     label8.setHorizontalAlignment(SwingConstants.CENTER);
                     label8.setForeground(Color.white);
 
@@ -275,12 +259,6 @@ public class AdminPanel extends JFrame {
                     searchTransaction.setText("Search Transaction");
                     searchTransaction.setForeground(new Color(204, 204, 204));
                     searchTransaction.setFont(new Font("Segoe UI", Font.BOLD, 16));
-                    searchTransaction.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            searchTransactionMousePressed(e);
-                        }
-                    });
 
                     GroupLayout searchTransactionActionLayout = new GroupLayout(searchTransactionAction);
                     searchTransactionAction.setLayout(searchTransactionActionLayout);
@@ -290,8 +268,7 @@ public class AdminPanel extends JFrame {
                                 .addContainerGap()
                                 .addComponent(label8, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchTransaction, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(searchTransaction, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
                     );
                     searchTransactionActionLayout.setVerticalGroup(
                         searchTransactionActionLayout.createParallelGroup()
@@ -309,7 +286,7 @@ public class AdminPanel extends JFrame {
                     deleteAccountAction.setBackground(new Color(64, 43, 100));
 
                     //---- label10 ----
-                    label10.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\deleteAccount.png"));
+                    label10.setIcon(new ImageIcon(getClass().getResource("/resource/deleteAccount.png")));
                     label10.setHorizontalAlignment(SwingConstants.CENTER);
                     label10.setForeground(Color.white);
 
@@ -317,12 +294,6 @@ public class AdminPanel extends JFrame {
                     deleteAccount.setText("Delete Account");
                     deleteAccount.setForeground(new Color(204, 204, 204));
                     deleteAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
-                    deleteAccount.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            deleteAccountMousePressed(e);
-                        }
-                    });
 
                     GroupLayout deleteAccountActionLayout = new GroupLayout(deleteAccountAction);
                     deleteAccountAction.setLayout(deleteAccountActionLayout);
@@ -332,7 +303,7 @@ public class AdminPanel extends JFrame {
                                 .addContainerGap()
                                 .addComponent(label10, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteAccount, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(deleteAccount, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
                     );
                     deleteAccountActionLayout.setVerticalGroup(
@@ -350,15 +321,15 @@ public class AdminPanel extends JFrame {
                 sidepane.setLayout(sidepaneLayout);
                 sidepaneLayout.setHorizontalGroup(
                     sidepaneLayout.createParallelGroup()
-                        .addComponent(homeAction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(sidepaneLayout.createSequentialGroup()
-                            .addGroup(sidepaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(deleteAccountAction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchTransactionAction, GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
-                            .addGap(0, 2, Short.MAX_VALUE))
-                        .addComponent(createUserAction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(createAccountAction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(transaferMoneyAction, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sidepaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(deleteAccountAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(searchTransactionAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(createUserAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(createAccountAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(transferMoneyAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(homeAction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addContainerGap(9, Short.MAX_VALUE))
                 );
                 sidepaneLayout.setVerticalGroup(
                     sidepaneLayout.createParallelGroup()
@@ -370,12 +341,12 @@ public class AdminPanel extends JFrame {
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(createAccountAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(transaferMoneyAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(transferMoneyAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(searchTransactionAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deleteAccountAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(158, Short.MAX_VALUE))
+                            .addContainerGap(164, Short.MAX_VALUE))
                 );
             }
 
@@ -396,7 +367,7 @@ public class AdminPanel extends JFrame {
                 userName.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
                 //---- logOut ----
-                logOut.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\lgout.png"));
+                logOut.setIcon(new ImageIcon(getClass().getResource("/resource/lgout.png")));
                 logOut.setHorizontalAlignment(SwingConstants.CENTER);
                 logOut.setForeground(Color.white);
 
@@ -406,23 +377,84 @@ public class AdminPanel extends JFrame {
                     navigationLayout.createParallelGroup()
                         .addGroup(navigationLayout.createSequentialGroup()
                             .addGap(14, 14, 14)
-                            .addComponent(label9, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label9, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(userName, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 419, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
                             .addComponent(logOut, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10))
+                            .addGap(45, 45, 45))
                 );
                 navigationLayout.setVerticalGroup(
                     navigationLayout.createParallelGroup()
                         .addGroup(navigationLayout.createSequentialGroup()
                             .addGap(10, 10, 10)
                             .addGroup(navigationLayout.createParallelGroup()
-                                .addComponent(logOut, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
                                 .addGroup(navigationLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(userName)
-                                    .addComponent(label9, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(label9, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(logOut, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
                             .addContainerGap(15, Short.MAX_VALUE))
+                );
+            }
+
+            //======== contentPanel ========
+            {
+
+                //---- label2 ----
+                label2.setIcon(new ImageIcon(getClass().getResource("/resource/bms2.png")));
+                label2.setHorizontalAlignment(SwingConstants.CENTER);
+
+                //======== panel1 ========
+                {
+                    panel1.setBackground(new Color(0, 229, 255));
+                    panel1.setBorder(new BevelBorder(BevelBorder.RAISED));
+
+                    //---- label4 ----
+                    label4.setText("Welcome to FinBank!");
+                    label4.setFont(new Font("Segoe UI", Font.BOLD, 20));
+                    label4.setForeground(new Color(48, 63, 159));
+                    label4.setHorizontalAlignment(SwingConstants.CENTER);
+
+                    GroupLayout panel1Layout = new GroupLayout(panel1);
+                    panel1.setLayout(panel1Layout);
+                    panel1Layout.setHorizontalGroup(
+                        panel1Layout.createParallelGroup()
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(87, 87, 87)
+                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 367, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(95, Short.MAX_VALUE))
+                    );
+                    panel1Layout.setVerticalGroup(
+                        panel1Layout.createParallelGroup()
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(86, Short.MAX_VALUE))
+                    );
+                }
+
+                GroupLayout contentPanelLayout = new GroupLayout(contentPanel);
+                contentPanel.setLayout(contentPanelLayout);
+                contentPanelLayout.setHorizontalGroup(
+                    contentPanelLayout.createParallelGroup()
+                        .addGroup(contentPanelLayout.createSequentialGroup()
+                            .addGroup(contentPanelLayout.createParallelGroup()
+                                .addGroup(contentPanelLayout.createSequentialGroup()
+                                    .addGap(211, 211, 211)
+                                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(contentPanelLayout.createSequentialGroup()
+                                    .addGap(59, 59, 59)
+                                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
+                contentPanelLayout.setVerticalGroup(
+                    contentPanelLayout.createParallelGroup()
+                        .addGroup(contentPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+                            .addGap(58, 58, 58)
+                            .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(67, Short.MAX_VALUE))
                 );
             }
 
@@ -431,18 +463,20 @@ public class AdminPanel extends JFrame {
             backgroundLayout.setHorizontalGroup(
                 backgroundLayout.createParallelGroup()
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(sidepane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(navigation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            );
-            backgroundLayout.setVerticalGroup(
-                backgroundLayout.createParallelGroup()
-                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundLayout.createParallelGroup()
                             .addComponent(navigation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sidepane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(contentPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            backgroundLayout.setVerticalGroup(
+                backgroundLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addComponent(sidepane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(navigation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contentPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
         }
 
@@ -450,7 +484,7 @@ public class AdminPanel extends JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(background, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE)
+                .addComponent(background, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -462,7 +496,7 @@ public class AdminPanel extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Shubham
+    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
     private JPanel background;
     private JPanel sidepane;
     private JPanel homeAction;
@@ -474,7 +508,7 @@ public class AdminPanel extends JFrame {
     private JPanel createAccountAction;
     private JLabel label5;
     private JLabel createAccount;
-    private JPanel transaferMoneyAction;
+    private JPanel transferMoneyAction;
     private JLabel label7;
     private JLabel transferMoney;
     private JPanel searchTransactionAction;
@@ -487,6 +521,10 @@ public class AdminPanel extends JFrame {
     private JLabel label9;
     private JLabel userName;
     private JLabel logOut;
+    private JPanel contentPanel;
+    private JLabel label2;
+    private JPanel panel1;
+    private JLabel label4;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public void init()

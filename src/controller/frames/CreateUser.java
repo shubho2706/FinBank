@@ -39,7 +39,7 @@ public class CreateUser extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Shubham
+        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
         background = new JPanel();
         sidepane = new JPanel();
         homeAction = new JPanel();
@@ -113,7 +113,7 @@ public class CreateUser extends JFrame {
                     homeAction.setBackground(new Color(64, 43, 100));
 
                     //---- label1 ----
-                    label1.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\home.png"));
+                    label1.setIcon(new ImageIcon(getClass().getResource("/resource/home.png")));
                     label1.setHorizontalAlignment(SwingConstants.CENTER);
                     label1.setForeground(Color.white);
 
@@ -155,7 +155,7 @@ public class CreateUser extends JFrame {
                     createUserAction.setBackground(new Color(85, 65, 118));
 
                     //---- label3 ----
-                    label3.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\user.png"));
+                    label3.setIcon(new ImageIcon(getClass().getResource("/resource/user.png")));
                     label3.setHorizontalAlignment(SwingConstants.CENTER);
                     label3.setForeground(Color.white);
 
@@ -198,7 +198,7 @@ public class CreateUser extends JFrame {
                     createAccountAction.setBackground(new Color(64, 43, 100));
 
                     //---- label5 ----
-                    label5.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\bank.png"));
+                    label5.setIcon(new ImageIcon(getClass().getResource("/resource/bank.png")));
                     label5.setHorizontalAlignment(SwingConstants.CENTER);
                     label5.setForeground(Color.white);
 
@@ -242,7 +242,7 @@ public class CreateUser extends JFrame {
                     transferMoneyAction.setBackground(new Color(64, 43, 100));
 
                     //---- label7 ----
-                    label7.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\moneyTransfer.png"));
+                    label7.setIcon(new ImageIcon(getClass().getResource("/resource/moneyTransfer.png")));
                     label7.setHorizontalAlignment(SwingConstants.CENTER);
                     label7.setForeground(Color.white);
 
@@ -288,7 +288,7 @@ public class CreateUser extends JFrame {
                     searchTransactionAction.setBackground(new Color(64, 43, 100));
 
                     //---- label8 ----
-                    label8.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\searchTransaction.png"));
+                    label8.setIcon(new ImageIcon(getClass().getResource("/resource/searchTransaction.png")));
                     label8.setHorizontalAlignment(SwingConstants.CENTER);
                     label8.setForeground(Color.white);
 
@@ -330,7 +330,7 @@ public class CreateUser extends JFrame {
                     deleteAccountAction.setBackground(new Color(64, 43, 100));
 
                     //---- label10 ----
-                    label10.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\deleteAccount.png"));
+                    label10.setIcon(new ImageIcon(getClass().getResource("/resource/deleteAccount.png")));
                     label10.setHorizontalAlignment(SwingConstants.CENTER);
                     label10.setForeground(Color.white);
 
@@ -416,7 +416,7 @@ public class CreateUser extends JFrame {
                 userName.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
                 //---- logOut ----
-                logOut.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\lgout.png"));
+                logOut.setIcon(new ImageIcon(getClass().getResource("/resource/lgout.png")));
                 logOut.setHorizontalAlignment(SwingConstants.CENTER);
                 logOut.setForeground(Color.white);
 
@@ -747,7 +747,7 @@ public class CreateUser extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Shubham
+    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
     private JPanel background;
     private JPanel sidepane;
     private JPanel homeAction;

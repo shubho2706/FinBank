@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_152-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_202-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -28,7 +28,7 @@ new FormModel {
 						"background": new java.awt.Color( 64, 43, 100, 255 )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label1"
-							"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\home.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/home.png" )
 							"horizontalAlignment": 0
 							"foreground": &Color0 new java.awt.Color( 255, 255, 255, 255 )
 						} )
@@ -48,7 +48,7 @@ new FormModel {
 						"background": new java.awt.Color( 85, 65, 118, 255 )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label3"
-							"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\user.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/user.png" )
 							"horizontalAlignment": 0
 							"foreground": #Color0
 						} )
@@ -69,7 +69,7 @@ new FormModel {
 						"background": &Color2 new java.awt.Color( 64, 43, 100, 255 )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label5"
-							"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\bank.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/bank.png" )
 							"horizontalAlignment": 0
 							"foreground": #Color0
 						} )
@@ -91,7 +91,7 @@ new FormModel {
 						"background": #Color2
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label7"
-							"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\moneyTransfer.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/moneyTransfer.png" )
 							"horizontalAlignment": 0
 							"foreground": #Color0
 						} )
@@ -112,7 +112,7 @@ new FormModel {
 						"background": #Color2
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label8"
-							"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\searchTransaction.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/searchTransaction.png" )
 							"horizontalAlignment": 0
 							"foreground": #Color0
 						} )
@@ -133,7 +133,7 @@ new FormModel {
 						"background": #Color2
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label10"
-							"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\deleteAccount.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/deleteAccount.png" )
 							"horizontalAlignment": 0
 							"foreground": #Color0
 						} )
@@ -168,7 +168,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "logOut"
-						"icon": new com.jformdesigner.model.SwingIcon( 1, "D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\lgout.png" )
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/lgout.png" )
 						"horizontalAlignment": 0
 						"foreground": #Color0
 					} )

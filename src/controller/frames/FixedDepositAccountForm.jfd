@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_152-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_202-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -15,13 +15,13 @@ new FormModel {
 				name: "background"
 				"background": new java.awt.Color( 250, 250, 250, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {comp homeAction:::::x, par t:::p {comp deleteAccountAction::l:::x, comp searchTransactionAction::l:::x, comp createUserAction::l:::x, comp createAccountAction::l:::x, comp transferMoneyAction::l:::x}}"
-					"$verticalGroup": "par l {seq l {space :p:78:p, comp homeAction:::p::p, space :::p, comp createUserAction:::p::p, space :::p, comp createAccountAction:::p::p, space :::p, comp transferMoneyAction:::p::p, space :::p, comp searchTransactionAction:::p::p, space :::p, comp deleteAccountAction:::p::p, space :::x}}"
+					"$horizontalGroup": "par l {seq {par t:::p {comp deleteAccountAction::l:::x, comp searchTransactionAction::l:::x, comp createUserAction::l:::x, comp createAccountAction::l:::x, comp transferMoneyAction::l:::x, comp homeAction:::::x}, space ::9:x}}"
+					"$verticalGroup": "par l {seq l {space :p:78:p, comp homeAction:::p::p, space :::p, comp createUserAction:::p::p, space :::p, comp createAccountAction:::p::p, space :::p, comp transferMoneyAction:::p::p, space :::p, comp searchTransactionAction:::p::p, space :::p, comp deleteAccountAction:::p::p, space ::164:x}}"
 				} ) {
 					name: "sidepane"
 					"background": new java.awt.Color( 54, 33, 89, 255 )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq l {space :::p, comp label1:::p:42:p, space u:::p, comp home:::p:122:p, space ::39:x}}"
+						"$horizontalGroup": "par l {seq l {space :::p, comp label1:::p:42:p, space u:::p, comp home:::p:122:p, space ::30:x}}"
 						"$verticalGroup": "par l {seq l {space :::p, par l {comp label1:::p:33:p, comp home:::::x}, space ::7:x}}"
 					} ) {
 						name: "homeAction"
@@ -209,7 +209,7 @@ new FormModel {
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 						"$horizontalGroup": "par l {seq t {par t {seq {comp label11:::p:115:p, space :::x, comp displayCustPhone:::p:141:p, space :p:56:p, comp savingsTransfer:::p:125:p, space s:::p, comp savingsTransfer2:::p:158:p}, seq {comp label13:::p:138:p, space u:::p, comp initialDeposit:::p:198:p, space :::p, comp interestRate2:::p:33:p, space s:::p, comp label14:::p:108:p, space :::x, comp interestRate:::p:29:p, space :p:14:p, comp label16:::p:27:p}, seq {space :::x, comp label15:::p:153:p, space :p:29:p, comp savingsAcc:::p:189:p}}, space :p:43:p}, seq {par l {seq l {space :p:20:p, comp label6:::p::p, space u:::p, comp displayCustName:::p:248:p}, seq {space :p:150:p, comp submit:::p:142:p, space :p:89:p, comp cancel:::p:121:p}}, space :::x}}"
-						"$verticalGroup": "par l {seq {space :p:7:p, par b {comp label6::b:p:37:p, comp displayCustName::b:p:37:p}, space :::p, par b {comp label11::b:p:37:p, comp displayCustPhone::b:p:37:p, comp savingsTransfer2::b:p:38:p, comp savingsTransfer::b:p:38:p}, space :::p, par l {comp savingsAcc:::p::p, comp label15:::p:37:p}, par l {par l {seq l {space :p:43:p, comp label13:::p:37:p}, seq t {space :::p, par l {par b:t {comp initialDeposit::b:p::p, comp interestRate2::b:p:37:p, comp label14::b:p:37:p}, comp interestRate::t:p:37:p}}}, seq l {space u:::p, comp label16:::p:37:p}}, space ::16:x, par b {comp cancel::b:p:45:p, comp submit::b:p:45:p}, space :p:26:p}}"
+						"$verticalGroup": "par l {seq {space :p:7:p, par b {comp label6::b:p:37:p, comp displayCustName::b:p:37:p}, space :::p, par b {comp label11::b:p:37:p, comp displayCustPhone::b:p:37:p, comp savingsTransfer2::b:p:38:p, comp savingsTransfer::b:p:38:p}, space :::p, par l {comp savingsAcc:::p::p, comp label15:::p:37:p}, par l {par l {seq l {space :p:43:p, comp label13:::p:37:p}, seq t {space :::p, par l {par b:t {comp initialDeposit::b:p::p, comp interestRate2::b:p:37:p, comp label14::b:p:37:p}, comp interestRate::t:p:37:p}}}, seq l {space u:::p, comp label16:::p:37:p}}, space ::13:x, par b {comp cancel::b:p:45:p, comp submit::b:p:45:p}, space :p:26:p}}"
 					} ) {
 						name: "createFixedDepositAccount"
 						"background": new java.awt.Color( 0, 229, 255, 255 )
