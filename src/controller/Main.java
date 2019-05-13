@@ -27,7 +27,8 @@ public class Main {
 
        // Instances.deleteAccount.init();
 
-        Instances.moneyTransfer.init();
+        //Instances.moneyTransfer.init();
+        Instances.fixedDepositAccountForm.init();
 
 
 

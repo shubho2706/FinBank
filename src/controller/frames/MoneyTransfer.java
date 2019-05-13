@@ -66,14 +66,14 @@ public class MoneyTransfer extends JFrame {
 
     private void submitMousePressed(MouseEvent e) {
 
-        if(radioTransfer.isEnabled()){
-
+        if(radioTransfer.isSelected()){
+            System.out.println("transfer");
             String fromAcc = accNoFrom.getText().trim();
             String toAcc = accNoTo.getText().trim();
             String amtStr = amount.getText().trim();
 
 
-            if(validateAccountNumber((fromAcc)) && validateAccountNumber(toAcc) && amountValidate(amtStr)){
+            if(validateAccountNumber(fromAcc) && validateAccountNumber(toAcc) && amountValidate(amtStr)){
 
                 Transaction transaction = new Transaction();
                 transaction.setTransactionAmount(Double.parseDouble(amtStr));
@@ -90,15 +90,18 @@ public class MoneyTransfer extends JFrame {
                 }else{
                     JFrame f = new JFrame();
                     JOptionPane.showMessageDialog(f, "Transaction Failed", "Alert", JOptionPane.WARNING_MESSAGE);
-                    Instances.moneyTransfer.init();
+                    //Instances.moneyTransfer.init();
                 }
 
             }
 
-        }else if(radioWithdraw.isEnabled()){
+        }else if(radioWithdraw.isSelected()){
 
-
+            System.out.println("withdraw");
             String fromAcc = accNoFrom.getText().trim();
+            System.out.println("In" + fromAcc);
+            System.out.println("In " + accNoTo.getText().trim());
+
             //String toAcc = accNoFrom.getText().trim();
             String amtStr = amount.getText().trim();
             if(validateAccountNumber(fromAcc) && amountValidate(amtStr)){
@@ -114,19 +117,20 @@ public class MoneyTransfer extends JFrame {
                 if(transactionService.executeTransaction(transaction)){
                     JFrame f = new JFrame();
                     JOptionPane.showMessageDialog(f, "Transaction Successful", "Alert", JOptionPane.WARNING_MESSAGE);
-                    //Instances.adminPanel.init();
+                    Instances.adminPanel.init();
                 }else{
                     JFrame f = new JFrame();
                     JOptionPane.showMessageDialog(f, "Transaction Failed due to insufficienet balance", "Alert", JOptionPane.WARNING_MESSAGE);
-                    //sInstances.moneyTransfer.init();
+                    //Instances.moneyTransfer.init();
                 }
 
             }
 
         }else{
+            System.out.println("deposit");
 
             //String fromAcc = accNoFrom.getText().trim();
-            String toAcc = accNoFrom.getText().trim();
+            String toAcc = accNoTo.getText().trim();
             String amtStr = amount.getText().trim();
             if(validateAccountNumber(toAcc) && amountValidate(amtStr)){
                 Transaction transaction = new Transaction();
@@ -144,22 +148,25 @@ public class MoneyTransfer extends JFrame {
                     Instances.adminPanel.init();
                 }else{
                     JFrame f = new JFrame();
-                    JOptionPane.showMessageDialog(f, "Transaction Failed", "Alert", JOptionPane.WARNING_MESSAGE);
-                    Instances.moneyTransfer.init();
+                    JOptionPane.showMessageDialog(f, "Transaction Failed due to insufficient balance", "Alert", JOptionPane.WARNING_MESSAGE);
+                    //Instances.moneyTransfer.init();
                 }
 
             }
 
         }
-
-
-
     }
 
 
-
-
     private boolean validateAccountNumber(String accNumber) {
+
+        if(accNumber.length() == 0){
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Please provide the account number" , "Alert", JOptionPane.WARNING_MESSAGE);
+            // Instances.moneyTransfer.init();
+
+            return false;
+        }
 
         if (accNumber.length() == 6) {
             if (savingsAccountService.isPresent(accNumber)) {

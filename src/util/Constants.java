@@ -16,17 +16,6 @@ public class Constants {
     public static final String TRANSACTION_TABLE = "Transaction";
 
 
-
-    public static final int MINIMUM_ACCOUNT_BALANCE = 2000;
-
-
-    public static final double SAVINGS_INTEREST_RATE = 5;
-    public static final double FD_LIMIT_1 =  200_000_00;
-    public static final double FD_LIMIT_2 =  1000_000_00;
-    public static final String BANK_CODE_SAVINGS = "130";
-    public static final String BANK_CODE_FIXED = "131";
-
-
     public static final String TRANSACTION_MEDIUM_CASH = "cash";
     public static final String TRANSACTION_MEDIUM_TRANSFER = "transfer";
     public static final String TRANSACTION_MEDIUM_NEFT = "neft";
@@ -37,6 +26,22 @@ public class Constants {
     public static final String TRANSACTION_STATUS_COMMITTED = "committed";
     public static final String TRANSACTION_STATUS_CREATED = "created";
     public static final String TRANSACTION_STATUS_FAILED = "failed";
+
+
+
+
+
+
+
+
+    public static final int MINIMUM_ACCOUNT_BALANCE = 2000;
+    public static final double SAVINGS_INTEREST_RATE = 5;
+    public static final String BANK_CODE_SAVINGS = "130";
+    public static final String BANK_CODE_FIXED = "131";
+
+    public static final double FD_LIMIT_1 =  200_000_00;
+    public static final double FD_LIMIT_2 =  1000_000_00;
+
 
 
 

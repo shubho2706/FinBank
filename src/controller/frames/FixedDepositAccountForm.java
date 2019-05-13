@@ -4,10 +4,26 @@
 
 package controller.frames;
 
+import java.awt.event.*;
+import javax.swing.event.*;
+
+import entity.Customer;
+import entity.FixedDeposit;
+import entity.SavingsAccount;
+import entity.Transaction;
+
 import service.CustomerService;
 import service.FixedDepositService;
+import service.SavingsAccountService;
+import service.TransactionService;
+import util.Constants;
+import util.Instances;
 
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.border.*;
@@ -18,21 +34,268 @@ import javax.swing.border.*;
 public class FixedDepositAccountForm extends JFrame {
     private CustomerService customerService=null;
     private FixedDepositService fixedDepositService=null;
+    private SavingsAccountService savingsAccountService = null;
+    private TransactionService transactionService = null;
 
     {
         customerService=new CustomerService();
         fixedDepositService=new FixedDepositService();
+        savingsAccountService = new SavingsAccountService();
+        transactionService = new TransactionService();
     }
 
     public FixedDepositAccountForm() {
         initComponents();
     }
 
+    private void homeMousePressed(MouseEvent e) {
+        Instances.adminPanel.init();
+    }
+
+    private void createUserMousePressed(MouseEvent e) {
+        Instances.createUser.init();
+    }
+
+    private void createAccountMousePressed(MouseEvent e) {
+
+        Instances.createAccount.init();
+    }
+
+    private void transferMoneyMousePressed(MouseEvent e) {
+        Instances.moneyTransfer.init();
+    }
+
+    private void searchTransactionMousePressed(MouseEvent e) {
+        Instances.searchTransaction.init();
+    }
+
+    private void deleteAccountMousePressed(MouseEvent e) {
+        Instances.deleteAccount.init();
+    }
+
+    private void logOutMousePressed(MouseEvent e) {
+        Instances.adminLoginForm.init();
+    }
+
+    private void searchMousePressed(MouseEvent e) {
+
+
+        String customerId = FixedDepositAccountForm.this.customerId.getText().trim();
+        if (customerIdValidate(customerId)) {
+            Customer customer = customerService.getCustomer(customerId);
+            if (customer == null) {
+                JFrame f = new JFrame();
+                JOptionPane.showMessageDialog(f, "Customer id not found. Please Create Customer First", "Alert", JOptionPane.WARNING_MESSAGE);
+            } else {
+
+//
+                customerName.setText(customer.getFirstName() + " " + customer.getLastName());
+                phoneNumber.setText(customer.getPhoneNumber());
+//                gender.setText(customer.getGender());
+//
+//                age.setText(calcAge(customer.getDoB()));
+//                interestRate.setText(String.valueOf(Constants.SAVINGS_INTEREST_RATE));
+                String arrAcc[] = savingsAccountService.getAccountNumberList(customerId);
+                if(arrAcc != null) {
+
+                    for (String accNo : arrAcc) {
+                        savingsAccCombo.addItem(accNo);
+                        System.out.println(accNo);
+                    }
+                    FixedDepositAccountForm.this.customerId.setEditable(false);
+                }
+
+
+                submit.setEnabled(true);
+                FixedDepositAccountForm.this.customerId.setEditable(false);
+            }
+
+        }
+
+    }
+
+    private void cancelMousePressed(MouseEvent e) {
+        Instances.createAccount.init();
+    }
+
+    private boolean amountValidate(String amtStr) {
+        double amount = 0.0;
+        if (amtStr.length() == 0) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Please provide Initial Amount", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        try {
+            amount = Double.parseDouble(amtStr);
+        } catch (NumberFormatException e) {
+
+            System.out.println(e);
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Initial Amount", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (amount < Constants.MINIMUM_ACCOUNT_BALANCE) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Minimum account balance is " + Constants.MINIMUM_ACCOUNT_BALANCE, "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean customerIdValidate(String customerId) {
+        if (customerId.length() != 4) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        try {
+
+            Integer.parseInt(customerId);
+        } catch (NumberFormatException e) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+/*
+    private String calcAge(String dobText){
+        try {
+
+            dobText = dobText.replace('.','/');
+            dobText = dobText.replace('.','/');
+            dobText = dobText.replace('-','/');
+            dobText = dobText.replace('-','/');
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            Date currentDate = new Date();
+
+
+            Date dobDate = dateFormat.parse(dobText);
+            long diff = currentDate.getTime() - dobDate.getTime();
+            long div = (long)1000 * 60 * 60 * 24 * 30 * 12L;
+            int userAge = (int)(diff/div);
+            System.out.println("age " + userAge);
+            return userAge +"";
+
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+            return "---";
+        }
+    }*/
+
+    private void savingsTransferActionPerformed(ActionEvent e) {
+
+
+        // TODO add your code here
+    }
+
+    private void nonSavingsTransferMousePressed(MouseEvent e) {
+
+        // TODO add your code here
+    }
+
+    private void submitMousePressed(MouseEvent e) {
+        String amtStr = initialDeposit.getText().trim();
+        int mon = (int) duration.getValue();
+        if(amountValidate(amtStr)){
+            if(mon != 0){
+                if(savingsTransfer.isSelected()){
+                    try {
+                        String accountNumber = savingsAccCombo.getSelectedItem().toString();
+                        if(savingsAccountService.getCurrentAccountBalance(accountNumber) - Double.parseDouble(initialDeposit.getText().trim()) >= Constants.MINIMUM_ACCOUNT_BALANCE){
+
+                            FixedDeposit fixedDeposit = new FixedDeposit();
+                            Customer customer = new Customer();
+                            customer.setCustomerId(customerId.getText().trim());
+                            fixedDeposit.setCustomer(customer);
+                            fixedDeposit.setDurationInMonths(mon);
+                            fixedDeposit.setDepositBalance(Double.parseDouble(initialDeposit.getText().trim()));
+
+                            String accNo = fixedDepositService.addAccount(fixedDeposit);
+                            Transaction transaction = new Transaction();
+                            transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_TRANSFER);
+                            transaction.setTransactionAmount(Double.parseDouble(initialDeposit.getText().trim()));
+                            transaction.setFromAccountNumber(accountNumber);
+                            transaction.setFromAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                            transaction.setToAccountType(Constants.FIXED_DEPOSIT_TYPE);
+                            transactionService.executeTransaction(transaction);
+                            if(accNo != null){
+                                JFrame f = new JFrame();
+                                JOptionPane.showMessageDialog(f, "Account Created Successfully : " + accNo, "Alert", JOptionPane.WARNING_MESSAGE);
+
+                            }
+
+                        }else{
+                            JFrame f = new JFrame();
+                            JOptionPane.showMessageDialog(f, "Insufficient Balance" , "Alert", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+
+                    }catch (Exception e1){
+                        return;
+                    }
+                }
+                else{
+
+                    String accountNumber = savingsAccCombo.getSelectedItem().toString();
+                    FixedDeposit fixedDeposit = new FixedDeposit();
+                    Customer customer = new Customer();
+                    customer.setCustomerId(customerId.getText().trim());
+                    fixedDeposit.setCustomer(customer);
+                    fixedDeposit.setDurationInMonths(mon);
+                    fixedDeposit.setDepositBalance(Double.parseDouble(initialDeposit.getText().trim()));
+
+                    String accNo = fixedDepositService.addAccount(fixedDeposit);
+                    Transaction transaction = new Transaction();
+                    transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_TRANSFER);
+                    transaction.setTransactionAmount(Double.parseDouble(initialDeposit.getText().trim()));
+                    transaction.setFromAccountNumber(accountNumber);
+                    transaction.setFromAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                    transaction.setToAccountType(Constants.FIXED_DEPOSIT_TYPE);
+                    transactionService.executeTransaction(transaction);
+                    if(accNo != null){
+                        JFrame f = new JFrame();
+                        JOptionPane.showMessageDialog(f, "Account Created Successfully : " + accNo, "Alert", JOptionPane.WARNING_MESSAGE);
+
+                    }
+
+                }
+            }else{
+                JFrame f = new JFrame();
+                JOptionPane.showMessageDialog(f, "Please enter duration", "Alert", JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
+
+
+
+    }
+
+    private void durationStateChanged(ChangeEvent e) {
+        // TODO add your code here
+        String amtStr = initialDeposit.getText().trim();
+        double amt = 0.0;
+        if(amtStr.length() != 0){
+            try{
+               amt =  Double.parseDouble(amtStr);
+                int mon = (int) duration.getValue();
+                interestRate.setText(String.valueOf(Constants.getFixedDepositInterest(amt, mon)));
+            }catch(Exception e1){
+                System.out.println(e1);
+            }
+
+        }
+
+    }
+
 
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+        // Generated using JFormDesigner Evaluation license - Shubham
         background = new JPanel();
         sidepane = new JPanel();
         homeAction = new JPanel();
@@ -80,6 +343,8 @@ public class FixedDepositAccountForm extends JFrame {
         label15 = new JLabel();
         savingsAccCombo = new JComboBox();
         interestRate2 = new JLabel();
+        label12 = new JLabel();
+        duration = new JSpinner();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -113,6 +378,12 @@ public class FixedDepositAccountForm extends JFrame {
                     home.setText("Home");
                     home.setForeground(new Color(204, 204, 204));
                     home.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    home.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            homeMousePressed(e);
+                        }
+                    });
 
                     GroupLayout homeActionLayout = new GroupLayout(homeAction);
                     homeAction.setLayout(homeActionLayout);
@@ -149,6 +420,12 @@ public class FixedDepositAccountForm extends JFrame {
                     createUser.setText("Create User");
                     createUser.setForeground(new Color(204, 204, 204));
                     createUser.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    createUser.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            createUserMousePressed(e);
+                        }
+                    });
 
                     GroupLayout createUserActionLayout = new GroupLayout(createUserAction);
                     createUserAction.setLayout(createUserActionLayout);
@@ -185,6 +462,12 @@ public class FixedDepositAccountForm extends JFrame {
                     createAccount.setText("Create Account");
                     createAccount.setForeground(new Color(204, 204, 204));
                     createAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    createAccount.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            createAccountMousePressed(e);
+                        }
+                    });
 
                     GroupLayout createAccountActionLayout = new GroupLayout(createAccountAction);
                     createAccountAction.setLayout(createAccountActionLayout);
@@ -221,6 +504,12 @@ public class FixedDepositAccountForm extends JFrame {
                     transferMoney.setText("Transfer Money");
                     transferMoney.setForeground(new Color(204, 204, 204));
                     transferMoney.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    transferMoney.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            transferMoneyMousePressed(e);
+                        }
+                    });
 
                     GroupLayout transferMoneyActionLayout = new GroupLayout(transferMoneyAction);
                     transferMoneyAction.setLayout(transferMoneyActionLayout);
@@ -257,6 +546,12 @@ public class FixedDepositAccountForm extends JFrame {
                     searchTransaction.setText("Search Transaction");
                     searchTransaction.setForeground(new Color(204, 204, 204));
                     searchTransaction.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    searchTransaction.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            searchTransactionMousePressed(e);
+                        }
+                    });
 
                     GroupLayout searchTransactionActionLayout = new GroupLayout(searchTransactionAction);
                     searchTransactionAction.setLayout(searchTransactionActionLayout);
@@ -292,6 +587,12 @@ public class FixedDepositAccountForm extends JFrame {
                     deleteAccount.setText("Delete Account");
                     deleteAccount.setForeground(new Color(204, 204, 204));
                     deleteAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    deleteAccount.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            deleteAccountMousePressed(e);
+                        }
+                    });
 
                     GroupLayout deleteAccountActionLayout = new GroupLayout(deleteAccountAction);
                     deleteAccountAction.setLayout(deleteAccountActionLayout);
@@ -344,7 +645,7 @@ public class FixedDepositAccountForm extends JFrame {
                             .addComponent(searchTransactionAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deleteAccountAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(164, Short.MAX_VALUE))
+                            .addContainerGap(167, Short.MAX_VALUE))
                 );
             }
 
@@ -368,6 +669,12 @@ public class FixedDepositAccountForm extends JFrame {
                 logOut.setIcon(new ImageIcon(getClass().getResource("/resource/lgout.png")));
                 logOut.setHorizontalAlignment(SwingConstants.CENTER);
                 logOut.setForeground(Color.white);
+                logOut.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        logOutMousePressed(e);
+                    }
+                });
 
                 GroupLayout navigationLayout = new GroupLayout(navigation);
                 navigation.setLayout(navigationLayout);
@@ -430,6 +737,12 @@ public class FixedDepositAccountForm extends JFrame {
                     search.setForeground(new Color(213, 0, 0));
                     search.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     search.setBorder(new LineBorder(Color.black, 2, true));
+                    search.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            searchMousePressed(e);
+                        }
+                    });
 
                     GroupLayout searchCustomerLayout = new GroupLayout(searchCustomer);
                     searchCustomer.setLayout(searchCustomerLayout);
@@ -530,6 +843,12 @@ public class FixedDepositAccountForm extends JFrame {
                     cancel.setForeground(Color.white);
                     cancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     cancel.setBorder(new LineBorder(Color.black, 2, true));
+                    cancel.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            cancelMousePressed(e);
+                        }
+                    });
 
                     //---- submit ----
                     submit.setText("Create Account");
@@ -537,18 +856,32 @@ public class FixedDepositAccountForm extends JFrame {
                     submit.setForeground(Color.black);
                     submit.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     submit.setBorder(new LineBorder(Color.black, 2, true));
+                    submit.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            submitMousePressed(e);
+                        }
+                    });
 
                     //---- savingsTransfer ----
                     savingsTransfer.setText("Savings Transfer");
                     savingsTransfer.setBackground(new Color(0, 229, 255));
                     savingsTransfer.setFont(new Font("Segoe UI", Font.BOLD, 12));
                     savingsTransfer.setForeground(Color.black);
+                    savingsTransfer.setSelected(true);
+                    savingsTransfer.addActionListener(e -> savingsTransferActionPerformed(e));
 
                     //---- nonSavingsTransfer ----
                     nonSavingsTransfer.setText("Non-Savings Transfer");
                     nonSavingsTransfer.setBackground(new Color(0, 229, 255));
                     nonSavingsTransfer.setFont(new Font("Segoe UI", Font.BOLD, 12));
                     nonSavingsTransfer.setForeground(Color.black);
+                    nonSavingsTransfer.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            nonSavingsTransferMousePressed(e);
+                        }
+                    });
 
                     //---- label15 ----
                     label15.setText("Saving's Account No:");
@@ -570,6 +903,13 @@ public class FixedDepositAccountForm extends JFrame {
                     interestRate2.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     interestRate2.setBorder(null);
 
+                    //---- label12 ----
+                    label12.setText("Years :");
+                    label12.setForeground(Color.black);
+
+                    //---- duration ----
+                    duration.addChangeListener(e -> durationStateChanged(e));
+
                     GroupLayout createFixedDepositAccountLayout = new GroupLayout(createFixedDepositAccount);
                     createFixedDepositAccount.setLayout(createFixedDepositAccountLayout);
                     createFixedDepositAccountLayout.setHorizontalGroup(
@@ -585,23 +925,23 @@ public class FixedDepositAccountForm extends JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(nonSavingsTransfer, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(label13, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(initialDeposit, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(interestRate2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(label14, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(interestRate, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(label16, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
                                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(label15, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
                                         .addGap(58, 58, 58)
-                                        .addComponent(savingsAccCombo, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(savingsAccCombo, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addComponent(label12, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(duration, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(interestRate2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(label14, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(interestRate, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(label16, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(43, 43, 43))
                             .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
                                 .addGroup(createFixedDepositAccountLayout.createParallelGroup()
@@ -614,7 +954,12 @@ public class FixedDepositAccountForm extends JFrame {
                                         .addGap(150, 150, 150)
                                         .addComponent(submit, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
                                         .addGap(89, 89, 89)
-                                        .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(label13, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(initialDeposit, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     );
                     createFixedDepositAccountLayout.setVerticalGroup(
@@ -636,19 +981,19 @@ public class FixedDepositAccountForm extends JFrame {
                                         .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                             .addComponent(label15, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                                             .addComponent(savingsAccCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(createFixedDepositAccountLayout.createParallelGroup()
-                                            .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
-                                                .addGap(43, 43, 43)
-                                                .addComponent(label13, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(GroupLayout.Alignment.TRAILING, createFixedDepositAccountLayout.createSequentialGroup()
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(initialDeposit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(interestRate2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(label14, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(interestRate, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))))
+                                        .addGap(2, 2, 2)
+                                        .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                            .addComponent(label13, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(initialDeposit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGap(4, 4, 4)
+                                        .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                            .addComponent(interestRate2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label14, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label12, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(interestRate, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(duration, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(label16, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                                 .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(submit, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
@@ -719,11 +1064,16 @@ public class FixedDepositAccountForm extends JFrame {
         );
         pack();
         setLocationRelativeTo(getOwner());
+
+        //---- buttonGroup1 ----
+        ButtonGroup buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(savingsTransfer);
+        buttonGroup1.add(nonSavingsTransfer);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+    // Generated using JFormDesigner Evaluation license - Shubham
     private JPanel background;
     private JPanel sidepane;
     private JPanel homeAction;
@@ -771,6 +1121,8 @@ public class FixedDepositAccountForm extends JFrame {
     private JLabel label15;
     private JComboBox savingsAccCombo;
     private JLabel interestRate2;
+    private JLabel label12;
+    private JSpinner duration;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     public void init() {
 
