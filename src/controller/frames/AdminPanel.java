@@ -104,7 +104,7 @@ public class AdminPanel extends JFrame {
 
                 //======== homeAction ========
                 {
-                    homeAction.setBackground(new Color(64, 43, 100));
+                    homeAction.setBackground(new Color(85, 65, 118));
 
                     //---- label1 ----
                     label1.setIcon(new ImageIcon(getClass().getResource("/resource/home.png")));
@@ -176,7 +176,7 @@ public class AdminPanel extends JFrame {
 
                 //======== createAccountAction ========
                 {
-                    createAccountAction.setBackground(new Color(85, 65, 118));
+                    createAccountAction.setBackground(new Color(64, 43, 100));
 
                     //---- label5 ----
                     label5.setIcon(new ImageIcon(getClass().getResource("/resource/bank.png")));
@@ -454,7 +454,7 @@ public class AdminPanel extends JFrame {
                             .addComponent(label2, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
                             .addGap(58, 58, 58)
                             .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(71, Short.MAX_VALUE))
+                            .addContainerGap(67, Short.MAX_VALUE))
                 );
             }
 

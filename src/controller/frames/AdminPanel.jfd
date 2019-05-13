@@ -25,7 +25,7 @@ new FormModel {
 						"$verticalGroup": "par l {seq l {space :::p, par l {comp label1:::p:33:p, comp home:::::x}, space ::7:x}}"
 					} ) {
 						name: "homeAction"
-						"background": new java.awt.Color( 64, 43, 100, 255 )
+						"background": new java.awt.Color( 85, 65, 118, 255 )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label1"
 							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/home.png" )
@@ -63,7 +63,7 @@ new FormModel {
 						"$verticalGroup": "par l {seq l {space :::p, par l {comp label5:::p:33:p, comp createAccount:::::x}, space ::7:x}}"
 					} ) {
 						name: "createAccountAction"
-						"background": new java.awt.Color( 85, 65, 118, 255 )
+						"background": new java.awt.Color( 64, 43, 100, 255 )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label5"
 							"icon": new com.jformdesigner.model.SwingIcon( 0, "/resource/bank.png" )
@@ -164,7 +164,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {seq {par l {seq {space :p:211:p, comp label2:::p:222:p}, seq l {space :p:59:p, comp panel1:::p::p}}, space :::x}}"
-					"$verticalGroup": "par l {seq l {space :::p, comp label2:::p:142:p, space :p:58:p, comp panel1:::p::p, space ::71:x}}"
+					"$verticalGroup": "par l {seq l {space :::p, comp label2:::p:142:p, space :p:58:p, comp panel1:::p::p, space ::67:x}}"
 				} ) {
 					name: "contentPanel"
 					add( new FormComponent( "javax.swing.JLabel" ) {
