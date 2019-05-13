@@ -16,6 +16,10 @@ public class ImagesResource {
     public static final String fixedDeposit="/resource/fixedDeposit.png";
     public static final String deleteFixed="/resource/fixedClose.png";
     public static final String deleteSavings="/resource/savingsClose.png";
+    public static final String bms="/resource/bms.png";
+    public static final String bms2="/resource/bms2.png";
+    public static final String backgrnd="/resource/backgrnd.png";
+
 
 
 

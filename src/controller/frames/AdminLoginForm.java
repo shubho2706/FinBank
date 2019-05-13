@@ -4,6 +4,7 @@
 
 package controller.frames;
 
+import javax.swing.plaf.*;
 import service.AdminService;
 
 import javax.swing.*;
@@ -51,7 +52,7 @@ public class AdminLoginForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Shubham
+        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
         background = new JPanel();
         leftpane = new JPanel();
         label2 = new JLabel();
@@ -75,11 +76,11 @@ public class AdminLoginForm extends JFrame {
             background.setBackground(new Color(224, 224, 224));
 
             // JFormDesigner evaluation mark
-            background.setBorder(new CompoundBorder(
-                new TitledBorder(new EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", TitledBorder.CENTER,
-                    TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), background.getBorder())); background.addPropertyChangeListener(new PropertyChangeListener(){public void propertyChange(PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+            background.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
             //======== leftpane ========
@@ -96,15 +97,15 @@ public class AdminLoginForm extends JFrame {
                 label2.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- label6 ----
-                label6.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\bank2.png"));
+                label6.setIcon(new ImageIcon(getClass().getResource("/resource/bank2.png")));
                 label6.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- label7 ----
-                label7.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\money.png"));
+                label7.setIcon(new ImageIcon(getClass().getResource("/resource/money.png")));
                 label7.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- label8 ----
-                label8.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\people.png"));
+                label8.setIcon(new ImageIcon(getClass().getResource("/resource/people.png")));
                 label8.setHorizontalAlignment(SwingConstants.CENTER);
 
                 GroupLayout leftpaneLayout = new GroupLayout(leftpane);
@@ -146,7 +147,7 @@ public class AdminLoginForm extends JFrame {
                 rightpane.setBorder(LineBorder.createBlackLineBorder());
 
                 //---- label1 ----
-                label1.setIcon(new ImageIcon("D:\\Coding Workspace\\Design Lab\\FinBank\\src\\resource\\admin.png"));
+                label1.setIcon(new ImageIcon(getClass().getResource("/resource/admin.png")));
                 label1.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- label3 ----
@@ -277,7 +278,7 @@ public class AdminLoginForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Shubham
+    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
     private JPanel background;
     private JPanel leftpane;
     private JLabel label2;
