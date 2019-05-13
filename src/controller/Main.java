@@ -23,12 +23,12 @@ public class Main {
         Instances.fixedDepositAccountForm = new FixedDepositAccountForm();
 
 
-        //Instances.adminLoginForm.init();
+        Instances.adminLoginForm.init();
 
        // Instances.deleteAccount.init();
 
         //Instances.moneyTransfer.init();
-        Instances.fixedDepositAccountForm.init();
+        //Instances.fixedDepositAccountForm.init();
 
 
 
