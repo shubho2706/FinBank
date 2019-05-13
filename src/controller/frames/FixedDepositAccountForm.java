@@ -4,6 +4,9 @@
 
 package controller.frames;
 
+import service.CustomerService;
+import service.FixedDepositService;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -13,9 +16,19 @@ import javax.swing.border.*;
  * @author Sunandan Bhakat
  */
 public class FixedDepositAccountForm extends JFrame {
+    private CustomerService customerService=null;
+    private FixedDepositService fixedDepositService=null;
+
+    {
+        customerService=new CustomerService();
+        fixedDepositService=new FixedDepositService();
+    }
+
     public FixedDepositAccountForm() {
         initComponents();
     }
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -52,9 +65,9 @@ public class FixedDepositAccountForm extends JFrame {
         search = new JButton();
         createFixedDepositAccount = new JPanel();
         label6 = new JLabel();
-        displayCustName = new JLabel();
+        customerName = new JLabel();
         label11 = new JLabel();
-        displayCustPhone = new JLabel();
+        phoneNumber = new JLabel();
         label13 = new JLabel();
         initialDeposit = new JTextField();
         label14 = new JLabel();
@@ -63,9 +76,9 @@ public class FixedDepositAccountForm extends JFrame {
         cancel = new JButton();
         submit = new JButton();
         savingsTransfer = new JRadioButton();
-        savingsTransfer2 = new JRadioButton();
+        nonSavingsTransfer = new JRadioButton();
         label15 = new JLabel();
-        savingsAcc = new JComboBox();
+        savingsAccCombo = new JComboBox();
         interestRate2 = new JLabel();
 
         //======== this ========
@@ -455,11 +468,11 @@ public class FixedDepositAccountForm extends JFrame {
                     label6.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     label6.setBorder(null);
 
-                    //---- displayCustName ----
-                    displayCustName.setBackground(Color.white);
-                    displayCustName.setForeground(new Color(245, 0, 87));
-                    displayCustName.setFont(new Font("Verdana", Font.BOLD, 16));
-                    displayCustName.setBorder(null);
+                    //---- customerName ----
+                    customerName.setBackground(Color.white);
+                    customerName.setForeground(new Color(245, 0, 87));
+                    customerName.setFont(new Font("Verdana", Font.BOLD, 16));
+                    customerName.setBorder(null);
 
                     //---- label11 ----
                     label11.setText("Phone No:");
@@ -469,11 +482,11 @@ public class FixedDepositAccountForm extends JFrame {
                     label11.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     label11.setBorder(null);
 
-                    //---- displayCustPhone ----
-                    displayCustPhone.setBackground(Color.white);
-                    displayCustPhone.setForeground(new Color(245, 0, 87));
-                    displayCustPhone.setFont(new Font("Verdana", Font.BOLD, 16));
-                    displayCustPhone.setBorder(null);
+                    //---- phoneNumber ----
+                    phoneNumber.setBackground(Color.white);
+                    phoneNumber.setForeground(new Color(245, 0, 87));
+                    phoneNumber.setFont(new Font("Verdana", Font.BOLD, 16));
+                    phoneNumber.setBorder(null);
 
                     //---- label13 ----
                     label13.setText("Initial Amount:");
@@ -531,11 +544,11 @@ public class FixedDepositAccountForm extends JFrame {
                     savingsTransfer.setFont(new Font("Segoe UI", Font.BOLD, 12));
                     savingsTransfer.setForeground(Color.black);
 
-                    //---- savingsTransfer2 ----
-                    savingsTransfer2.setText("Non-Savings Transfer");
-                    savingsTransfer2.setBackground(new Color(0, 229, 255));
-                    savingsTransfer2.setFont(new Font("Segoe UI", Font.BOLD, 12));
-                    savingsTransfer2.setForeground(Color.black);
+                    //---- nonSavingsTransfer ----
+                    nonSavingsTransfer.setText("Non-Savings Transfer");
+                    nonSavingsTransfer.setBackground(new Color(0, 229, 255));
+                    nonSavingsTransfer.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    nonSavingsTransfer.setForeground(Color.black);
 
                     //---- label15 ----
                     label15.setText("Saving's Account No:");
@@ -545,9 +558,9 @@ public class FixedDepositAccountForm extends JFrame {
                     label15.setFont(new Font("Segoe UI", Font.BOLD, 14));
                     label15.setBorder(null);
 
-                    //---- savingsAcc ----
-                    savingsAcc.setFont(new Font("Segoe UI", Font.BOLD, 12));
-                    savingsAcc.setBackground(Color.white);
+                    //---- savingsAccCombo ----
+                    savingsAccCombo.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    savingsAccCombo.setBackground(Color.white);
 
                     //---- interestRate2 ----
                     interestRate2.setText("INR");
@@ -565,13 +578,14 @@ public class FixedDepositAccountForm extends JFrame {
                                 .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
                                         .addComponent(label11, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(displayCustPhone, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(56, 56, 56)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(phoneNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(savingsTransfer, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(savingsTransfer2, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(nonSavingsTransfer, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(label13, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(initialDeposit, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)
@@ -579,15 +593,15 @@ public class FixedDepositAccountForm extends JFrame {
                                         .addComponent(interestRate2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(label14, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(interestRate, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(14, 14, 14)
+                                        .addGap(18, 18, 18)
                                         .addComponent(label16, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
                                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(label15, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(savingsAcc, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(58, 58, 58)
+                                        .addComponent(savingsAccCombo, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(43, 43, 43))
                             .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
                                 .addGroup(createFixedDepositAccountLayout.createParallelGroup()
@@ -595,7 +609,7 @@ public class FixedDepositAccountForm extends JFrame {
                                         .addGap(20, 20, 20)
                                         .addComponent(label6)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(displayCustName, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(customerName, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
                                         .addGap(150, 150, 150)
                                         .addComponent(submit, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
@@ -609,33 +623,31 @@ public class FixedDepositAccountForm extends JFrame {
                                 .addGap(7, 7, 7)
                                 .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(label6, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(displayCustName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(customerName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label11, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(displayCustPhone, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(savingsTransfer2, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(savingsTransfer, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(createFixedDepositAccountLayout.createParallelGroup()
-                                    .addComponent(savingsAcc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label15, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(createFixedDepositAccountLayout.createParallelGroup()
-                                    .addGroup(createFixedDepositAccountLayout.createParallelGroup()
-                                        .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
-                                            .addGap(43, 43, 43)
-                                            .addComponent(label13, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, createFixedDepositAccountLayout.createSequentialGroup()
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(createFixedDepositAccountLayout.createParallelGroup()
-                                                .addGroup(GroupLayout.Alignment.TRAILING, createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
+                                        .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                            .addComponent(label11, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(nonSavingsTransfer, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(savingsTransfer, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(phoneNumber, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                            .addComponent(label15, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(savingsAccCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(createFixedDepositAccountLayout.createParallelGroup()
+                                            .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addComponent(label13, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(GroupLayout.Alignment.TRAILING, createFixedDepositAccountLayout.createSequentialGroup()
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                     .addComponent(initialDeposit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(interestRate2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(label14, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(interestRate, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(createFixedDepositAccountLayout.createSequentialGroup()
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(label16, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
+                                                    .addComponent(label14, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(interestRate, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(label16, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                                 .addGroup(createFixedDepositAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
@@ -744,9 +756,9 @@ public class FixedDepositAccountForm extends JFrame {
     private JButton search;
     private JPanel createFixedDepositAccount;
     private JLabel label6;
-    private JLabel displayCustName;
+    private JLabel customerName;
     private JLabel label11;
-    private JLabel displayCustPhone;
+    private JLabel phoneNumber;
     private JLabel label13;
     private JTextField initialDeposit;
     private JLabel label14;
@@ -755,9 +767,9 @@ public class FixedDepositAccountForm extends JFrame {
     private JButton cancel;
     private JButton submit;
     private JRadioButton savingsTransfer;
-    private JRadioButton savingsTransfer2;
+    private JRadioButton nonSavingsTransfer;
     private JLabel label15;
-    private JComboBox savingsAcc;
+    private JComboBox savingsAccCombo;
     private JLabel interestRate2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     public void init() {
@@ -776,4 +788,6 @@ public class FixedDepositAccountForm extends JFrame {
         frame.setVisible(true);
 
     }
+
+
 }
