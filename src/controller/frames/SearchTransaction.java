@@ -40,6 +40,7 @@ public class SearchTransaction extends JFrame {
 
         savingsAccCombo.removeAllItems();
         // TODO add your code here
+
         String customerId = SearchTransaction.this.customerId.getText().trim();
         if (customerIdValidate(customerId)) {
             Customer customer = customerService.getCustomer(customerId);

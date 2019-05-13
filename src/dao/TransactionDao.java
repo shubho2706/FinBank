@@ -16,7 +16,7 @@ public class TransactionDao {
     public boolean createTransaction(Transaction transaction) {
 
         Connection con = MysqlCon.getConnection();
-        System.out.println(con);
+        System.out.println("createTransaction"+ con);
         String query = "";
 
         try {
@@ -49,7 +49,7 @@ public class TransactionDao {
             return true;
 
         } catch (Exception e) {
-            System.out.println("SAVINGS-DAO :: " + e);
+            System.out.println("Tranaction-DAO :: " + e);
             return false;
 
         }
@@ -57,20 +57,23 @@ public class TransactionDao {
 
     public boolean commitTransaction(Transaction transaction) {
         Connection con = MysqlCon.getConnection();
-        System.out.println(con);
+        System.out.println("commitTransaction" + con);
+
 
         try {
-            String query = "UPDATE " + Constants.TRANSACTION_TABLE + " t SET t.transaction_commited=" + Constants.TRANSACTION_STATUS_COMMITTED
+            //con.setAutoCommit(false);
+            String query = "UPDATE " + Constants.TRANSACTION_TABLE + " t SET t.transaction_status=?"
                     + " WHERE t.transaction_id=?";
 
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, transaction.getTransactionId());
+            preparedStmt.setString(2, transaction.getTransactionId());
+            preparedStmt.setString(1, Constants.TRANSACTION_STATUS_COMMITTED);
             preparedStmt.execute();
-
+            //con.commit();
             return true;
 
         } catch (Exception e) {
-            System.out.println("SAVINGS-DAO :: " + e);
+            System.out.println("Tranaction-DAO :: " + e);
             return false;
 
         }
@@ -78,20 +81,23 @@ public class TransactionDao {
 
     public boolean failTransaction(Transaction transaction) {
         Connection con = MysqlCon.getConnection();
-        System.out.println(con);
+        System.out.println("failTransaction" + con);
+
 
         try {
-            String query = "UPDATE " + Constants.TRANSACTION_TABLE + " t SET t.transaction_commited=" + Constants.TRANSACTION_STATUS_FAILED
+            //con.setAutoCommit(false);
+            String query = "UPDATE " + Constants.TRANSACTION_TABLE + " t SET t.transaction_status=?"
                     + " WHERE t.transaction_id=?";
 
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, transaction.getTransactionId());
+            preparedStmt.setString(2, transaction.getTransactionId());
+            preparedStmt.setString(1, Constants.TRANSACTION_STATUS_FAILED);
             preparedStmt.execute();
-
+            //con.commit();
             return true;
 
         } catch (Exception e) {
-            System.out.println("SAVINGS-DAO :: " + e);
+            System.out.println("TRansaction---DAO :: " + e);
             return false;
 
         }

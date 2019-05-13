@@ -10,18 +10,19 @@ import java.sql.*;
 
 public  class MysqlCon {
 
-    static Connection con = null;
+    //static Connection con = null;
 
 
     public static Connection getConnection() {
 
+        Connection con = null;
         if (con == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
 
                  con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Constants.DATABASE_NAME, Constants.DB_USER_NAME, Constants.DB_PASSWORD);
 
-                System.out.printf(con.toString());
+                //System.out.printf(con.toString());
             } catch (Exception e) {
                 System.out.println(e);
             }

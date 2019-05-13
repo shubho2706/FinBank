@@ -154,4 +154,28 @@ public class CustomerDao {
         }
 
     }
+    public boolean deleteCustomer(String customerId){
+        Connection con = MysqlCon.getConnection();
+        System.out.println(con);
+        // int rowsAffected;
+        try {
+
+            String query = "DELETE from " + Constants.CUSTOMER_TABLE + " c where c.customer_id = " + customerId;
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+
+            // execute the preparedstatement
+            ResultSet rs = preparedStmt.executeQuery();
+           // con.commit();
+            if (rs.next()) {
+                return true;
+            }
+            return false;
+
+        } catch (Exception e) {
+            System.out.println("CUSTOMER-DAO :: " + e);
+            return false;
+
+        }
+
+    }
 }

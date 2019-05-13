@@ -113,6 +113,7 @@ public class FixedDepositDao {
 
             // execute the preparedstatement
             ResultSet rs = preparedStmt.executeQuery();
+           // con.commit();
             /*if (rs.next()) {
                 return true;
             }

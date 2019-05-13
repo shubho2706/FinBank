@@ -485,6 +485,7 @@ public class SavingsAccountForm extends JFrame {
                         @Override
                         public void mousePressed(MouseEvent e) {
                             searchMousePressed(e);
+                            searchMousePressed(e);
                         }
                     });
 
@@ -937,7 +938,7 @@ public class SavingsAccountForm extends JFrame {
     }
 
     private boolean amountValidate(String amtStr) {
-        long amount = 0;
+        double amount = 0.0;
         if (amtStr.length() == 0) {
             JFrame f = new JFrame();
             JOptionPane.showMessageDialog(f, "Please provide Initial Amount", "Alert", JOptionPane.WARNING_MESSAGE);
@@ -945,7 +946,7 @@ public class SavingsAccountForm extends JFrame {
         }
 
         try {
-            amount = Long.parseLong(amtStr);
+            amount = Double.parseDouble(amtStr);
         } catch (NumberFormatException e) {
 
             System.out.println(e);

@@ -55,4 +55,9 @@ public class CustomerService {
     public boolean checkPhoneNumber(String phNumber) {
         return customerDao.checkPhoneNumber(phNumber);
     }
+
+    public boolean deleteCustomer(String customerId) {
+        return customerDao.deleteCustomer(customerId);
+
+    }
 }

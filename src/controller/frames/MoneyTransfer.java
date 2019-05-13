@@ -4,6 +4,13 @@
 
 package controller.frames;
 
+import entity.Transaction;
+import service.SavingsAccountService;
+import service.TransactionService;
+import util.Constants;
+import util.Instances;
+
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -12,13 +19,224 @@ import java.awt.*;
  * @author Sunandan Bhakat
  */
 public class MoneyTransfer extends JFrame {
+
+    TransactionService transactionService = null;
+    SavingsAccountService savingsAccountService = null;
+    {
+        transactionService = new TransactionService();
+        savingsAccountService = new SavingsAccountService();
+    }
     public MoneyTransfer() {
         initComponents();
     }
 
+    private void homeMousePressed(MouseEvent e) {
+        Instances.adminPanel.init();
+    }
+
+    private void createUserMousePressed(MouseEvent e) {
+        Instances.createUser.init();
+    }
+
+    private void createAccountMousePressed(MouseEvent e) {
+
+        Instances.createAccount.init();
+    }
+
+    private void transferMoneyMousePressed(MouseEvent e) {
+        Instances.moneyTransfer.init();
+    }
+
+    private void searchTransactionMousePressed(MouseEvent e) {
+        Instances.searchTransaction.init();
+    }
+
+    private void deleteAccountMousePressed(MouseEvent e) {
+        Instances.deleteAccount.init();
+    }
+
+    private void logOutMousePressed(MouseEvent e) {
+        Instances.adminLoginForm.init();
+    }
+
+    private void cancelMousePressed(MouseEvent e) {
+        Instances.adminPanel.init();
+
+    }
+
+    private void submitMousePressed(MouseEvent e) {
+
+        if(radioTransfer.isEnabled()){
+
+            String fromAcc = accNoFrom.getText().trim();
+            String toAcc = accNoTo.getText().trim();
+            String amtStr = amount.getText().trim();
+            if(validateAccountNumber((fromAcc)) && validateAccountNumber(toAcc) && amountValidate(amtStr)){
+
+
+
+
+                Transaction transaction = new Transaction();
+                transaction.setTransactionAmount(Double.parseDouble(amtStr));
+                transaction.setFromAccountNumber(fromAcc);
+                transaction.setToAccountNumber(toAcc);
+                System.out.println(transaction.getFromAccountNumber() +" and" + transaction.getToAccountNumber());
+                transaction.setFromAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                transaction.setToAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_TRANSFER);
+                if(transactionService.executeTransaction(transaction)){
+                    JFrame f = new JFrame();
+                    JOptionPane.showMessageDialog(f, "Transaction Successful", "Alert", JOptionPane.WARNING_MESSAGE);
+                    Instances.adminPanel.init();
+                }else{
+                    JFrame f = new JFrame();
+                    JOptionPane.showMessageDialog(f, "Transaction Failed", "Alert", JOptionPane.WARNING_MESSAGE);
+                    Instances.moneyTransfer.init();
+                }
+
+            }
+
+        }else if(radioWithdraw.isEnabled()){
+
+
+            String fromAcc = accNoFrom.getText().trim();
+            //String toAcc = accNoFrom.getText().trim();
+            String amtStr = amount.getText().trim();
+            if(validateAccountNumber(fromAcc) && amountValidate(amtStr)){
+                Transaction transaction = new Transaction();
+                transaction.setTransactionAmount(Double.parseDouble(amtStr));
+
+                transaction.setFromAccountNumber(fromAcc);
+
+                //transaction.setToAccountNumber(toAcc);
+                transaction.setFromAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                //transaction.setToAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_CASH);
+                if(transactionService.executeTransaction(transaction)){
+                    JFrame f = new JFrame();
+                    JOptionPane.showMessageDialog(f, "Transaction Successful", "Alert", JOptionPane.WARNING_MESSAGE);
+                    //Instances.adminPanel.init();
+                }else{
+                    JFrame f = new JFrame();
+                    JOptionPane.showMessageDialog(f, "Transaction Failed due to insufficienet balance", "Alert", JOptionPane.WARNING_MESSAGE);
+                    //sInstances.moneyTransfer.init();
+                }
+
+            }
+
+        }else{
+
+            //String fromAcc = accNoFrom.getText().trim();
+            String toAcc = accNoFrom.getText().trim();
+            String amtStr = amount.getText().trim();
+            if(validateAccountNumber(toAcc) && amountValidate(amtStr)){
+                Transaction transaction = new Transaction();
+                transaction.setTransactionAmount(Double.parseDouble(amtStr));
+                //transaction.setFromAccountNumber(fromAcc);
+
+                transaction.setToAccountNumber(toAcc);
+
+                //transaction.setFromAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                transaction.setToAccountType(Constants.SAVINGS_ACCOUNT_TYPE);
+                transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_TRANSFER);
+                if(transactionService.executeTransaction(transaction)){
+                    JFrame f = new JFrame();
+                    JOptionPane.showMessageDialog(f, "Transaction Successful", "Alert", JOptionPane.WARNING_MESSAGE);
+                    Instances.adminPanel.init();
+                }else{
+                    JFrame f = new JFrame();
+                    JOptionPane.showMessageDialog(f, "Transaction Failed", "Alert", JOptionPane.WARNING_MESSAGE);
+                    Instances.moneyTransfer.init();
+                }
+
+            }
+
+        }
+
+
+
+    }
+
+
+
+
+    private boolean validateAccountNumber(String accNumber) {
+
+        if (accNumber.length() == 6) {
+            if (savingsAccountService.isPresent(accNumber)) {
+                return true;
+            } else {
+                JFrame f = new JFrame();
+                JOptionPane.showMessageDialog(f, " Account numbers not found: "+ accNumber , "Alert", JOptionPane.WARNING_MESSAGE);
+               // Instances.moneyTransfer.init();
+
+                return false;
+            }
+
+        } else {
+
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Account numbers" , "Alert", JOptionPane.WARNING_MESSAGE);
+           // Instances.moneyTransfer.init();
+
+            return false;
+        }
+    }
+
+
+
+    private boolean amountValidate(String amtStr) {
+        double amount = 0.0;
+        if (amtStr.length() == 0) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Please provide the Amount", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        try {
+            amount = Double.parseDouble(amtStr);
+        } catch (NumberFormatException e) {
+
+            System.out.println(e);
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Amount", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void radioTransferMousePressed(MouseEvent e) {
+        // TUseless
+    }
+
+    private void radioTransferActionPerformed(ActionEvent e) {
+        labelFrom.setEnabled(true);
+        labelTo.setEnabled(true);
+        accNoFrom.setEnabled(true);
+        accNoTo.setEnabled(true);
+        neft.setVisible(true);
+    }
+
+    private void radioWithdrawActionPerformed(ActionEvent e) {
+        labelFrom.setEnabled(true);
+        labelTo.setEnabled(false);
+        accNoFrom.setEnabled(true);
+        accNoTo.setEnabled(false);
+        neft.setVisible(false);
+    }
+
+    private void radioDepositActionPerformed(ActionEvent e) {
+        labelFrom.setEnabled(false);
+        labelTo.setEnabled(true);
+        accNoFrom.setEnabled(false);
+        accNoTo.setEnabled(true);
+        neft.setVisible(false);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+        // Generated using JFormDesigner Evaluation license - Shubham
         background = new JPanel();
         sidepane = new JPanel();
         homeAction = new JPanel();
@@ -35,28 +253,31 @@ public class MoneyTransfer extends JFrame {
         transferMoney = new JLabel();
         searchTransactionAction = new JPanel();
         label8 = new JLabel();
-        transferMoney2 = new JLabel();
+        searchTransaction = new JLabel();
         deleteAccountAction = new JPanel();
         label10 = new JLabel();
-        transferMoney3 = new JLabel();
+        deleteAccount = new JLabel();
         navigation = new JPanel();
         label9 = new JLabel();
         userName = new JLabel();
         logOut = new JLabel();
         label2 = new JLabel();
         panel1 = new JPanel();
-        label4 = new JLabel();
+        labelFrom = new JLabel();
         accNoFrom = new JTextField();
         label6 = new JLabel();
-        label11 = new JLabel();
+        labelTo = new JLabel();
         accNoTo = new JTextField();
         submit = new JButton();
         cancel = new JButton();
         label12 = new JLabel();
-        transferAmount = new JTextField();
+        amount = new JTextField();
         cash = new JRadioButton();
         cheque = new JRadioButton();
         neft = new JRadioButton();
+        radioTransfer = new JRadioButton();
+        radioDeposit = new JRadioButton();
+        radioWithdraw = new JRadioButton();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -66,11 +287,11 @@ public class MoneyTransfer extends JFrame {
             background.setBackground(new Color(250, 250, 250));
 
             // JFormDesigner evaluation mark
-            background.setBorder(new CompoundBorder(
-                new TitledBorder(new EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", TitledBorder.CENTER,
-                    TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+            background.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
             //======== sidepane ========
@@ -90,6 +311,12 @@ public class MoneyTransfer extends JFrame {
                     home.setText("Home");
                     home.setForeground(new Color(204, 204, 204));
                     home.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    home.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            homeMousePressed(e);
+                        }
+                    });
 
                     GroupLayout homeActionLayout = new GroupLayout(homeAction);
                     homeAction.setLayout(homeActionLayout);
@@ -126,6 +353,12 @@ public class MoneyTransfer extends JFrame {
                     createUser.setText("Create User");
                     createUser.setForeground(new Color(204, 204, 204));
                     createUser.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    createUser.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            createUserMousePressed(e);
+                        }
+                    });
 
                     GroupLayout createUserActionLayout = new GroupLayout(createUserAction);
                     createUserAction.setLayout(createUserActionLayout);
@@ -162,6 +395,12 @@ public class MoneyTransfer extends JFrame {
                     createAccount.setText("Create Account");
                     createAccount.setForeground(new Color(204, 204, 204));
                     createAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    createAccount.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            createAccountMousePressed(e);
+                        }
+                    });
 
                     GroupLayout createAccountActionLayout = new GroupLayout(createAccountAction);
                     createAccountAction.setLayout(createAccountActionLayout);
@@ -198,6 +437,12 @@ public class MoneyTransfer extends JFrame {
                     transferMoney.setText("Transfer Money");
                     transferMoney.setForeground(new Color(204, 204, 204));
                     transferMoney.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    transferMoney.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            transferMoneyMousePressed(e);
+                        }
+                    });
 
                     GroupLayout transferMoneyActionLayout = new GroupLayout(transferMoneyAction);
                     transferMoneyAction.setLayout(transferMoneyActionLayout);
@@ -230,10 +475,16 @@ public class MoneyTransfer extends JFrame {
                     label8.setHorizontalAlignment(SwingConstants.CENTER);
                     label8.setForeground(Color.white);
 
-                    //---- transferMoney2 ----
-                    transferMoney2.setText("Search Transaction");
-                    transferMoney2.setForeground(new Color(204, 204, 204));
-                    transferMoney2.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    //---- searchTransaction ----
+                    searchTransaction.setText("Search Transaction");
+                    searchTransaction.setForeground(new Color(204, 204, 204));
+                    searchTransaction.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    searchTransaction.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            searchTransactionMousePressed(e);
+                        }
+                    });
 
                     GroupLayout searchTransactionActionLayout = new GroupLayout(searchTransactionAction);
                     searchTransactionAction.setLayout(searchTransactionActionLayout);
@@ -243,7 +494,7 @@ public class MoneyTransfer extends JFrame {
                                 .addContainerGap()
                                 .addComponent(label8, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(transferMoney2, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                                .addComponent(searchTransaction, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
                     );
                     searchTransactionActionLayout.setVerticalGroup(
                         searchTransactionActionLayout.createParallelGroup()
@@ -251,7 +502,7 @@ public class MoneyTransfer extends JFrame {
                                 .addContainerGap()
                                 .addGroup(searchTransactionActionLayout.createParallelGroup()
                                     .addComponent(label8, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(transferMoney2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(searchTransaction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap(7, Short.MAX_VALUE))
                     );
                 }
@@ -265,10 +516,16 @@ public class MoneyTransfer extends JFrame {
                     label10.setHorizontalAlignment(SwingConstants.CENTER);
                     label10.setForeground(Color.white);
 
-                    //---- transferMoney3 ----
-                    transferMoney3.setText("Delete Account");
-                    transferMoney3.setForeground(new Color(204, 204, 204));
-                    transferMoney3.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    //---- deleteAccount ----
+                    deleteAccount.setText("Delete Account");
+                    deleteAccount.setForeground(new Color(204, 204, 204));
+                    deleteAccount.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    deleteAccount.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            deleteAccountMousePressed(e);
+                        }
+                    });
 
                     GroupLayout deleteAccountActionLayout = new GroupLayout(deleteAccountAction);
                     deleteAccountAction.setLayout(deleteAccountActionLayout);
@@ -278,7 +535,7 @@ public class MoneyTransfer extends JFrame {
                                 .addContainerGap()
                                 .addComponent(label10, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(transferMoney3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(deleteAccount, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
                     );
                     deleteAccountActionLayout.setVerticalGroup(
@@ -287,7 +544,7 @@ public class MoneyTransfer extends JFrame {
                                 .addContainerGap()
                                 .addGroup(deleteAccountActionLayout.createParallelGroup()
                                     .addComponent(label10, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(transferMoney3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(deleteAccount, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap(7, Short.MAX_VALUE))
                     );
                 }
@@ -321,7 +578,7 @@ public class MoneyTransfer extends JFrame {
                             .addComponent(searchTransactionAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deleteAccountAction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(144, Short.MAX_VALUE))
+                            .addContainerGap(147, Short.MAX_VALUE))
                 );
             }
 
@@ -345,6 +602,12 @@ public class MoneyTransfer extends JFrame {
                 logOut.setIcon(new ImageIcon(getClass().getResource("/resource/lgout.png")));
                 logOut.setHorizontalAlignment(SwingConstants.CENTER);
                 logOut.setForeground(Color.white);
+                logOut.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        logOutMousePressed(e);
+                    }
+                });
 
                 GroupLayout navigationLayout = new GroupLayout(navigation);
                 navigation.setLayout(navigationLayout);
@@ -384,11 +647,11 @@ public class MoneyTransfer extends JFrame {
             {
                 panel1.setBackground(new Color(234, 128, 252));
 
-                //---- label4 ----
-                label4.setText("Transfer From Savings A/C No:");
-                label4.setForeground(new Color(54, 33, 89));
-                label4.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                label4.setHorizontalAlignment(SwingConstants.CENTER);
+                //---- labelFrom ----
+                labelFrom.setText("Transfer From Savings A/C No:");
+                labelFrom.setForeground(new Color(54, 33, 89));
+                labelFrom.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                labelFrom.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- accNoFrom ----
                 accNoFrom.setHorizontalAlignment(SwingConstants.CENTER);
@@ -401,11 +664,11 @@ public class MoneyTransfer extends JFrame {
                 label6.setFont(new Font("Segoe UI", Font.BOLD, 18));
                 label6.setHorizontalAlignment(SwingConstants.CENTER);
 
-                //---- label11 ----
-                label11.setText("Transfer To Savings A/C No:");
-                label11.setForeground(new Color(54, 33, 89));
-                label11.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                label11.setHorizontalAlignment(SwingConstants.CENTER);
+                //---- labelTo ----
+                labelTo.setText("Transfer To Savings A/C No:");
+                labelTo.setForeground(new Color(54, 33, 89));
+                labelTo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                labelTo.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- accNoTo ----
                 accNoTo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -418,6 +681,12 @@ public class MoneyTransfer extends JFrame {
                 submit.setForeground(Color.black);
                 submit.setFont(new Font("Segoe UI", Font.BOLD, 14));
                 submit.setBorder(new LineBorder(Color.black, 2, true));
+                submit.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        submitMousePressed(e);
+                    }
+                });
 
                 //---- cancel ----
                 cancel.setText("Cancel");
@@ -425,22 +694,29 @@ public class MoneyTransfer extends JFrame {
                 cancel.setForeground(Color.white);
                 cancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
                 cancel.setBorder(new LineBorder(Color.black, 2, true));
+                cancel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        cancelMousePressed(e);
+                    }
+                });
 
                 //---- label12 ----
-                label12.setText("Transfer Amount:");
+                label12.setText("Amount:");
                 label12.setForeground(new Color(54, 33, 89));
                 label12.setFont(new Font("Segoe UI", Font.BOLD, 14));
                 label12.setHorizontalAlignment(SwingConstants.CENTER);
 
-                //---- transferAmount ----
-                transferAmount.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-                transferAmount.setBorder(new LineBorder(new Color(98, 0, 234), 2));
+                //---- amount ----
+                amount.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                amount.setBorder(new LineBorder(new Color(98, 0, 234), 2));
 
                 //---- cash ----
                 cash.setText("By Cash");
                 cash.setFont(new Font("Segoe UI", Font.BOLD, 14));
                 cash.setBorder(null);
                 cash.setBackground(new Color(234, 128, 252));
+                cash.setSelected(true);
 
                 //---- cheque ----
                 cheque.setText("By Cheque");
@@ -452,6 +728,25 @@ public class MoneyTransfer extends JFrame {
                 neft.setFont(new Font("Segoe UI", Font.BOLD, 14));
                 neft.setBackground(new Color(234, 128, 252));
 
+                //---- radioTransfer ----
+                radioTransfer.setText("Transfer");
+                radioTransfer.setSelected(true);
+                radioTransfer.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        radioTransferMousePressed(e);
+                    }
+                });
+                radioTransfer.addActionListener(e -> radioTransferActionPerformed(e));
+
+                //---- radioDeposit ----
+                radioDeposit.setText("Deposit");
+                radioDeposit.addActionListener(e -> radioDepositActionPerformed(e));
+
+                //---- radioWithdraw ----
+                radioWithdraw.setText("Withdraw");
+                radioWithdraw.addActionListener(e -> radioWithdrawActionPerformed(e));
+
                 GroupLayout panel1Layout = new GroupLayout(panel1);
                 panel1.setLayout(panel1Layout);
                 panel1Layout.setHorizontalGroup(
@@ -462,13 +757,13 @@ public class MoneyTransfer extends JFrame {
                                     .addGap(19, 19, 19)
                                     .addGroup(panel1Layout.createParallelGroup()
                                         .addGroup(panel1Layout.createSequentialGroup()
-                                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelFrom, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
                                             .addGap(35, 35, 35)
                                             .addComponent(accNoFrom, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(panel1Layout.createSequentialGroup()
                                             .addComponent(label12, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(transferAmount, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(amount, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(cash, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
                                             .addGap(12, 12, 12)
@@ -479,7 +774,7 @@ public class MoneyTransfer extends JFrame {
                                             .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                 .addGroup(panel1Layout.createSequentialGroup()
                                                     .addGap(28, 28, 28)
-                                                    .addComponent(label11, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(labelTo, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(GroupLayout.Alignment.LEADING, panel1Layout.createSequentialGroup()
                                                     .addGap(130, 130, 130)
                                                     .addComponent(submit, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)))
@@ -492,15 +787,28 @@ public class MoneyTransfer extends JFrame {
                                                     .addComponent(accNoTo, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE))))))
                                 .addGroup(panel1Layout.createSequentialGroup()
                                     .addGap(238, 238, 238)
-                                    .addComponent(label6, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(label6, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panel1Layout.createSequentialGroup()
+                                    .addGap(30, 30, 30)
+                                    .addComponent(radioTransfer, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(101, 101, 101)
+                                    .addComponent(radioWithdraw)
+                                    .addGap(116, 116, 116)
+                                    .addComponent(radioDeposit)))
                             .addContainerGap(38, Short.MAX_VALUE))
                 );
                 panel1Layout.setVerticalGroup(
                     panel1Layout.createParallelGroup()
                         .addGroup(panel1Layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
+                            .addContainerGap()
                             .addGroup(panel1Layout.createParallelGroup()
-                                .addComponent(label4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(radioTransfer)
+                                    .addComponent(radioWithdraw))
+                                .addComponent(radioDeposit, GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(panel1Layout.createParallelGroup()
+                                .addComponent(labelFrom, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(panel1Layout.createSequentialGroup()
                                     .addComponent(accNoFrom, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE)))
@@ -508,16 +816,16 @@ public class MoneyTransfer extends JFrame {
                             .addComponent(label6, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label11, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelTo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(accNoTo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(label12, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(transferAmount)
+                                .addComponent(amount)
                                 .addComponent(cash, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cheque, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(neft, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                             .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(submit, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
@@ -555,7 +863,7 @@ public class MoneyTransfer extends JFrame {
                         .addComponent(label2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 104, Short.MAX_VALUE))
+                        .addGap(0, 107, Short.MAX_VALUE))
             );
         }
 
@@ -571,11 +879,23 @@ public class MoneyTransfer extends JFrame {
         );
         pack();
         setLocationRelativeTo(getOwner());
+
+        //---- buttonGroup1 ----
+        ButtonGroup buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(cash);
+        buttonGroup1.add(cheque);
+        buttonGroup1.add(neft);
+
+        //---- buttonGroup2 ----
+        ButtonGroup buttonGroup2 = new ButtonGroup();
+        buttonGroup2.add(radioTransfer);
+        buttonGroup2.add(radioDeposit);
+        buttonGroup2.add(radioWithdraw);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+    // Generated using JFormDesigner Evaluation license - Shubham
     private JPanel background;
     private JPanel sidepane;
     private JPanel homeAction;
@@ -592,28 +912,31 @@ public class MoneyTransfer extends JFrame {
     private JLabel transferMoney;
     private JPanel searchTransactionAction;
     private JLabel label8;
-    private JLabel transferMoney2;
+    private JLabel searchTransaction;
     private JPanel deleteAccountAction;
     private JLabel label10;
-    private JLabel transferMoney3;
+    private JLabel deleteAccount;
     private JPanel navigation;
     private JLabel label9;
     private JLabel userName;
     private JLabel logOut;
     private JLabel label2;
     private JPanel panel1;
-    private JLabel label4;
+    private JLabel labelFrom;
     private JTextField accNoFrom;
     private JLabel label6;
-    private JLabel label11;
+    private JLabel labelTo;
     private JTextField accNoTo;
     private JButton submit;
     private JButton cancel;
     private JLabel label12;
-    private JTextField transferAmount;
+    private JTextField amount;
     private JRadioButton cash;
     private JRadioButton cheque;
     private JRadioButton neft;
+    private JRadioButton radioTransfer;
+    private JRadioButton radioDeposit;
+    private JRadioButton radioWithdraw;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public void init() {

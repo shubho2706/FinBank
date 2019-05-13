@@ -4,6 +4,13 @@
 
 package controller.frames;
 
+import entity.Customer;
+import entity.FixedDeposit;
+import entity.SavingsAccount;
+import service.CustomerService;
+import service.FixedDepositService;
+import util.Instances;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -14,49 +21,115 @@ import java.awt.event.MouseEvent;
  * @author Sunandan Bhakat
  */
 public class FixedDepositAccountClose extends JFrame {
+
+    private CustomerService customerService = null;
+    private FixedDepositService fixedDepositService = null;
+
+    {
+        customerService = new CustomerService();
+        fixedDepositService = new FixedDepositService();
+    }
+
+
     public FixedDepositAccountClose() {
         initComponents();
     }
 
+
+
     private void homeMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.adminPanel.init();
     }
 
     private void createUserMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.createUser.init();
     }
 
     private void createAccountMousePressed(MouseEvent e) {
-        // TODO add your code here
+
+        Instances.createAccount.init();
     }
 
     private void transferMoneyMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.moneyTransfer.init();
     }
 
     private void searchTransactionMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.searchTransaction.init();
     }
 
     private void deleteAccountMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.deleteAccount.init();
     }
 
     private void logOutMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.adminLoginForm.init();
     }
+
+
+
 
     private void searchMousePressed(MouseEvent e) {
-        // TODO add your code here
+        String customerId = FixedDepositAccountClose.this.customerId.getText().trim();
+        if (customerIdValidate(customerId)) {
+            Customer customer = customerService.getCustomer(customerId);
+            if (customer == null) {
+                JFrame f = new JFrame();
+                JOptionPane.showMessageDialog(f, "Customer id not found. Please Create Customer First", "Alert", JOptionPane.WARNING_MESSAGE);
+            } else {
+                //submit.setEnabled(true);
+                FixedDepositAccountClose.this.customerId.setEditable(false);
+            }
+
+        }
+
+
+
+
     }
 
+
+    private boolean customerIdValidate(String customerId) {
+        if (customerId.length() != 4) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        try {
+
+            Integer.parseInt(customerId);
+        } catch (NumberFormatException e) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private void deleteButtonMousePressed(MouseEvent e) {
+
+
+
+        String accountNumber = fixedAccCombo.getSelectedItem().toString();
+
+        if(accountNumber.length() == 6){
+            FixedDeposit fixedDeposit = fixedDepositService.closeAccount(accountNumber);
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Account Deleted Successfully", "Alert", JOptionPane.WARNING_MESSAGE);
+
+        }
+    }
+
+
+
+
     private void cancelMousePressed(MouseEvent e) {
-        // TODO add your code here
+        Instances.deleteAccount.init();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+        // Generated using JFormDesigner Evaluation license - Shubham
         background = new JPanel();
         sidepane = new JPanel();
         homeAction = new JPanel();
@@ -93,8 +166,8 @@ public class FixedDepositAccountClose extends JFrame {
         label12 = new JLabel();
         cancel = new JButton();
         gender = new JLabel();
-        deleteButtonAction = new JButton();
-        accNo = new JComboBox();
+        delete = new JButton();
+        fixedAccCombo = new JComboBox();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -104,11 +177,11 @@ public class FixedDepositAccountClose extends JFrame {
             background.setBackground(new Color(250, 250, 250));
 
             // JFormDesigner evaluation mark
-            background.setBorder(new CompoundBorder(
-                new TitledBorder(new EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", TitledBorder.CENTER,
-                    TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+            background.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), background.getBorder())); background.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
             //======== sidepane ========
@@ -378,7 +451,7 @@ public class FixedDepositAccountClose extends JFrame {
                                 .addComponent(createUserAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(createAccountAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(transferMoneyAction, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(homeAction, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(homeAction, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(0, 21, Short.MAX_VALUE))
                 );
                 sidepaneLayout.setVerticalGroup(
@@ -493,6 +566,7 @@ public class FixedDepositAccountClose extends JFrame {
                         @Override
                         public void mousePressed(MouseEvent e) {
                             searchMousePressed(e);
+                            searchMousePressed(e);
                         }
                     });
 
@@ -563,12 +637,12 @@ public class FixedDepositAccountClose extends JFrame {
                     //---- gender ----
                     gender.setForeground(new Color(255, 51, 51));
 
-                    //---- deleteButtonAction ----
-                    deleteButtonAction.setText("Delete Account");
-                    deleteButtonAction.setBackground(new Color(0, 200, 83));
-                    deleteButtonAction.setForeground(Color.black);
-                    deleteButtonAction.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                    deleteButtonAction.setBorder(new LineBorder(Color.black, 2, true));
+                    //---- delete ----
+                    delete.setText("Delete Account");
+                    delete.setBackground(new Color(0, 200, 83));
+                    delete.setForeground(Color.black);
+                    delete.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                    delete.setBorder(new LineBorder(Color.black, 2, true));
 
                     GroupLayout deleteFixedAccountLayout = new GroupLayout(deleteFixedAccount);
                     deleteFixedAccount.setLayout(deleteFixedAccountLayout);
@@ -579,7 +653,7 @@ public class FixedDepositAccountClose extends JFrame {
                                 .addGroup(deleteFixedAccountLayout.createParallelGroup()
                                     .addGroup(deleteFixedAccountLayout.createSequentialGroup()
                                         .addGap(134, 134, 134)
-                                        .addComponent(deleteButtonAction, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(delete, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
                                         .addGap(103, 103, 103)
                                         .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(deleteFixedAccountLayout.createSequentialGroup()
@@ -588,7 +662,7 @@ public class FixedDepositAccountClose extends JFrame {
                                     .addGroup(deleteFixedAccountLayout.createSequentialGroup()
                                         .addComponent(label12, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(accNo, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fixedAccCombo, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(deleteFixedAccountLayout.createSequentialGroup()
                                         .addComponent(label11, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -601,7 +675,7 @@ public class FixedDepositAccountClose extends JFrame {
                                 .addGap(7, 7, 7)
                                 .addGroup(deleteFixedAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(label12, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(accNo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fixedAccCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(deleteFixedAccountLayout.createParallelGroup()
                                     .addGroup(deleteFixedAccountLayout.createSequentialGroup()
@@ -612,7 +686,7 @@ public class FixedDepositAccountClose extends JFrame {
                                 .addGap(21, 21, 21)
                                 .addGroup(deleteFixedAccountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(cancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(deleteButtonAction, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(delete, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(31, Short.MAX_VALUE))
                     );
                 }
@@ -684,7 +758,7 @@ public class FixedDepositAccountClose extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Sunandan Bhakat
+    // Generated using JFormDesigner Evaluation license - Shubham
     private JPanel background;
     private JPanel sidepane;
     private JPanel homeAction;
@@ -721,8 +795,8 @@ public class FixedDepositAccountClose extends JFrame {
     private JLabel label12;
     private JButton cancel;
     private JLabel gender;
-    private JButton deleteButtonAction;
-    private JComboBox accNo;
+    private JButton delete;
+    private JComboBox fixedAccCombo;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public void init() {

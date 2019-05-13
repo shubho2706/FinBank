@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_202-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.6.4.204" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -15,7 +15,7 @@ new FormModel {
 				name: "background"
 				"background": new java.awt.Color( 250, 250, 250, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {par t:::p {comp deleteAccountAction::l:::x, comp searchTransactionAction::l::0:x, comp createUserAction::l:::x, comp createAccountAction::l:::x, comp transferMoneyAction::l:::x, comp homeAction::::0:x}, space :0:21:x}}"
+					"$horizontalGroup": "par l {seq {par t:::p {comp deleteAccountAction::l:::x, comp searchTransactionAction::l::0:x, comp createUserAction::l:::x, comp createAccountAction::l:::x, comp transferMoneyAction::l:::x, comp homeAction:::::x}, space :0:21:x}}"
 					"$verticalGroup": "par l {seq l {space :p:78:p, comp homeAction:::p::p, space :::p, comp createUserAction:::p::p, space :::p, comp createAccountAction:::p::p, space :::p, comp transferMoneyAction:::p::p, space :::p, comp searchTransactionAction:::p::p, space :::p, comp deleteAccountAction:::p::p, space ::200:x}}"
 				} ) {
 					name: "sidepane"
@@ -214,11 +214,12 @@ new FormModel {
 							"font": &Font2 new java.awt.Font( "Segoe UI", 1, 14 )
 							"border": &LineBorder0 new javax.swing.border.LineBorder( sfield java.awt.Color black, 2, true )
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq {space :::p, par l {seq l {space :p:134:p, comp deleteButtonAction:::p:142:p, space :p:103:p, comp cancel:::p:121:p}, seq l {space :p:410:p, comp gender:::p:70:p}, seq l {comp label12:::p:144:p, space s:::p, comp accNo:::p:209:p}, seq l {comp label11:::p:144:p, space u:::p, comp refundAmt:::p:161:p}}, space :::x}}"
-						"$verticalGroup": "par l {seq {space :p:7:p, par b {comp label12::b:p:37:p, comp accNo::b:p::p}, space s:::p, par l {seq {comp label11:::p:37:p, space :p:9:p, comp gender:::p::p}, comp refundAmt:::p:37:p}, space :p:21:p, par b {comp cancel::b:p:45:p, comp deleteButtonAction::b:p:45:p}, space ::31:x}}"
+						"$horizontalGroup": "par l {seq {space :::p, par l {seq l {space :p:134:p, comp delete:::p:142:p, space :p:103:p, comp cancel:::p:121:p}, seq l {space :p:410:p, comp gender:::p:70:p}, seq l {comp label12:::p:144:p, space s:::p, comp fixedAccCombo:::p:209:p}, seq l {comp label11:::p:144:p, space u:::p, comp refundAmt:::p:161:p}}, space :::x}}"
+						"$verticalGroup": "par l {seq {space :p:7:p, par b {comp label12::b:p:37:p, comp fixedAccCombo::b:p::p}, space s:::p, par l {seq {comp label11:::p:37:p, space :p:9:p, comp gender:::p::p}, comp refundAmt:::p:37:p}, space :p:21:p, par b {comp cancel::b:p:45:p, comp delete::b:p:45:p}, space ::31:x}}"
 					} ) {
 						name: "deleteFixedAccount"
 						"background": new java.awt.Color( 255, 241, 118, 255 )
@@ -262,7 +263,7 @@ new FormModel {
 							"foreground": new java.awt.Color( 255, 51, 51, 255 )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "deleteButtonAction"
+							name: "delete"
 							"text": "Delete Account"
 							"background": new java.awt.Color( 0, 200, 83, 255 )
 							"foreground": new java.awt.Color( 0, 0, 0, 255 )
@@ -270,7 +271,7 @@ new FormModel {
 							"border": new javax.swing.border.LineBorder( sfield java.awt.Color black, 2, true )
 						} )
 						add( new FormComponent( "javax.swing.JComboBox" ) {
-							name: "accNo"
+							name: "fixedAccCombo"
 						} )
 					} )
 				} )

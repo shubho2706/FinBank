@@ -90,27 +90,6 @@ public class SavingsAccountDao {
             return  acNumberList;
     }
 
-    public boolean debit(String fromAccountNumber, double currentBal, double transactionAmount) {
-        Connection con = MysqlCon.getConnection();
-        System.out.println(con);
-
-        try {
-            String query = "UPDATE " + Constants.SAVINGS_ACCOUNT_TABLE + " s SET s.current_balance=?"
-                    + " WHERE s.account_number=?";
-
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setDouble(1, (currentBal - transactionAmount));
-            preparedStmt.setString(2, fromAccountNumber);
-            preparedStmt.execute();
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("SAVINGS-DAO :: " + e);
-            return false;
-
-        }
-    }
 
     public double getCurrentAccountBalance(String fromAccountNumber){
         Connection con = MysqlCon.getConnection();
@@ -139,7 +118,7 @@ public class SavingsAccountDao {
 
     public boolean credit(String accountNumber, double transactionAmount) {
         Connection con = MysqlCon.getConnection();
-        System.out.println(con);
+        System.out.println("credit  "+transactionAmount+"  " + accountNumber+ "  "+con);
         double currentBalance = getCurrentAccountBalance(accountNumber);
 
         try {
@@ -147,18 +126,56 @@ public class SavingsAccountDao {
                     + " WHERE s.account_number=?";
 
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setDouble(1, ( currentBalance +transactionAmount));
+            double updatedBalance = (currentBalance + transactionAmount);
+            System.out.println("creadit updated balance :" + currentBalance +" and " + transactionAmount+
+                    "  is ::" +(currentBalance + transactionAmount));
+            preparedStmt.setDouble(1, (currentBalance + transactionAmount));
             preparedStmt.setString(2, accountNumber);
-            preparedStmt.execute();
-
+            preparedStmt.executeUpdate();
+            //con.commit();
+            con.close();
             return true;
 
         } catch (Exception e) {
             System.out.println("SAVINGS-DAO :: " + e);
+            try{
+                throw e;
+            }catch(Exception e1){}
             return false;
 
         }
     }
+
+    public boolean debit(String fromAccountNumber, double currentBal, double transactionAmount) {
+        Connection con = MysqlCon.getConnection();
+        System.out.println("debit "+transactionAmount+"  "+fromAccountNumber +"   "+ con);
+        double currentBalance = getCurrentAccountBalance(fromAccountNumber);
+        try {
+            String query = "UPDATE " + Constants.SAVINGS_ACCOUNT_TABLE + " s SET s.current_balance=?"
+                    + " WHERE s.account_number=?";
+            System.out.println("debit updated balance :" + currentBalance +" - " + transactionAmount+
+                    "  is ::" +(currentBalance - transactionAmount));
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            double updatedBalance = (currentBalance - transactionAmount);
+            System.out.println("debit updated balanace :" + updatedBalance);
+            preparedStmt.setDouble(1, updatedBalance);
+            preparedStmt.setString(2, fromAccountNumber);
+            preparedStmt.executeUpdate();
+            //con.commit();
+            con.close();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("SAVINGS-DAO :: " + e);
+            try{
+                throw e;
+            }catch(Exception e1){}
+
+            return false;
+
+        }
+    }
+
 
     public SavingsAccount closeAccount(String accountNumber) {
         Connection con = MysqlCon.getConnection();
@@ -173,6 +190,7 @@ public class SavingsAccountDao {
 
             // execute the preparedstatement
             ResultSet rs = preparedStmt.executeQuery();
+           // con.commit();
             /*if (rs.next()) {
                 return true;
             }

@@ -28,6 +28,7 @@ public class Constants {
 
     public static final String TRANSACTION_MEDIUM_CASH = "cash";
     public static final String TRANSACTION_MEDIUM_TRANSFER = "transfer";
+    public static final String TRANSACTION_MEDIUM_NEFT = "neft";
     public static final String SAVINGS_ACCOUNT_TYPE= "savings";
     public static final String FIXED_DEPOSIT_TYPE= "fixedDeposit";
 

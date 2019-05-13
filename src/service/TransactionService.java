@@ -28,10 +28,10 @@ public class TransactionService {
         Date date = new Date();
         System.out.println(dateFormat.format(date));
         transaction.setTransactionDate(dateFormat.format(date));
-        if(transaction.getFromAccountNumber() != null && transaction.getToAccountNumber() != null)
+       /* if(transaction.getFromAccountNumber() != null && transaction.getToAccountNumber() != null)
             transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_TRANSFER);
         else
-            transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_CASH);
+            transaction.setTransactionMedium(Constants.TRANSACTION_MEDIUM_CASH);*/
 
         boolean transactionStatus = false;
         transactionDao.createTransaction(transaction);

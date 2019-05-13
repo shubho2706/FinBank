@@ -217,6 +217,7 @@ new FormModel {
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "searchMousePressed", true ) )
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {

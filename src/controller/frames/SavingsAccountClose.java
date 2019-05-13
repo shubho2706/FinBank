@@ -10,6 +10,7 @@ import entity.SavingsAccount;
 import service.CustomerService;
 import service.SavingsAccountService;
 import service.TransactionService;
+import util.Constants;
 import util.Instances;
 
 import javax.swing.*;
@@ -72,9 +73,6 @@ public class SavingsAccountClose extends JFrame {
 
     private void searchMousePressed(MouseEvent e) {
 
-        //search.setEnabled(false);
-        savingsAccCombo.removeAllItems();
-
         String customerId = SavingsAccountClose.this.customerId.getText().trim();
         if (customerIdValidate(customerId)) {
             Customer customer = customerService.getCustomer(customerId);
@@ -82,22 +80,31 @@ public class SavingsAccountClose extends JFrame {
                 JFrame f = new JFrame();
                 JOptionPane.showMessageDialog(f, "Customer id not found. Please Create Customer First", "Alert", JOptionPane.WARNING_MESSAGE);
             } else {
-                //Add to the combo box
-                String arrAcc[] = savingsAccountService.getAccountNumberList(customerId);
-
-                for (String accNo : arrAcc) {
-                    savingsAccCombo.addItem(accNo);
-                    System.out.println(accNo);
-                }
+               //submit.setEnabled(true);
                 SavingsAccountClose.this.customerId.setEditable(false);
-                SavingsAccountClose.this.deleteButton.setEnabled(true);
-
             }
 
         }
 
     }
 
+
+    private boolean customerIdValidate(String customerId) {
+        if (customerId.length() != 4) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        try {
+
+            Integer.parseInt(customerId);
+        } catch (NumberFormatException e) {
+            JFrame f = new JFrame();
+            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -119,22 +126,6 @@ public class SavingsAccountClose extends JFrame {
 
 
 
-    private boolean customerIdValidate(String customerId) {
-        if (customerId.length() != 4) {
-            JFrame f = new JFrame();
-            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        try {
-
-            Integer.parseInt(customerId);
-        } catch (NumberFormatException e) {
-            JFrame f = new JFrame();
-            JOptionPane.showMessageDialog(f, "Invalid Customer ID", "Alert", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        return true;
-    }
 
     private void cancelMousePressed(MouseEvent e) {// USeless
         Instances.adminPanel.init();
@@ -605,6 +596,7 @@ public class SavingsAccountClose extends JFrame {
                     search.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mousePressed(MouseEvent e) {
+                            searchMousePressed(e);
                             searchMousePressed(e);
                             searchMousePressed(e);
                             searchMousePressed(e);
